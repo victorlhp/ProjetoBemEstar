@@ -11,8 +11,11 @@ const Calculadora = () => {
     return (
     <View>
         <Text>Calculadora</Text>
-        <TextInput defaultValue={parcela1.toString()} onChangeText={(texto) => setParcela1(Number(texto))}/>
-        <TextInput defaultValue={parcela2.toString()} onChangeText={(texto) => setParcela2(Number(texto))}/>
+        <TextInput keyboardType='numeric' Value={parcela1.toString()} onChangeText={(texto) => setParcela1(Number(texto))}/>
+        <TextInput keyboardType='numeric' Value={parcela2.toString()} onChangeText={(texto) => setParcela2(Number(texto))}/>
+        <TextInput autoCapitalize='words' Value={parcela2.toString()} onChangeText={(texto) => setParcela2(Number(texto))}/>
+        <TextInput returnKeyType='go' Value={parcela2.toString()} onChangeText={(texto) => setParcela2(Number(texto))}/>
+        <TextInput secureTextEntry={true} Value={parcela2.toString()} onChangeText={(texto) => setParcela2(Number(texto))}/>
         <Button title="Somar" onPress={()=> setSoma(parcela1 + parcela2)}/>
         <Text>Soma: {soma}</Text>
     </View>
