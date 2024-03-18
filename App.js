@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import {useState} from 'react'
 import Calculadora  from './Calculadora';
+import TelaLoginNetflix from './TelaLoginNetflix'
 
 const getNomeCompleto = (nome, sobrenome) => {
   return nome + ' ' + sobrenome;
@@ -13,7 +14,7 @@ const Cat = ({nome, sobrenome, idade}) => {
   return <Text>Oi, Eu sou {getNomeCompleto(nome, sobrenome).toUpperCase()}, e eu tenho {(idade)} {texto}</Text>
 }
 
-export default Calculadora;
+export default TelaLoginNetflix;
 
 function IFAL() {
 
