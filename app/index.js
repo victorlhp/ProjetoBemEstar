@@ -1,6 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router'
+import TelaLoginNetflix from '../TelaLoginNetflix';
+import BemEstar  from '../BemEstar';
+import TelaSplash from '../TelaSplash';
+import introducao from '../introducao';
+
 
 const getNomeCompleto = (nome, sobrenome) => {
   return nome + ' ' + sobrenome;
@@ -61,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IFAL;
+export default BemEstar;
