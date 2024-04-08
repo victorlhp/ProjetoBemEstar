@@ -8,7 +8,7 @@ const TelaPersonalizada = () => {
       
       <ImageBackground
         source={require('./../assets/logoBemEstar.png')}
-        style={styles.logoBackground} imageStyle={{opacity: 0.5}}
+        style={styles.logoBackground} imageStyle={{opacity: 0.2}}
         resizeMode="cover"
         
       >
