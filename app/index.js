@@ -1,69 +1,149 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
-import { Link } from 'expo-router'
-import TelaLoginNetflix from '../TelaLoginNetflix';
-import BemEstar  from '../BemEstar';
-import TelaSplash from '../TelaSplash';
-import introducao from '../introducao';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { Image } from 'react-native';
+import { Link } from 'expo-router';
 
+const LoginScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha
 
-const getNomeCompleto = (nome, sobrenome) => {
-  return nome + ' ' + sobrenome;
-}
+  const handleLogin = () => {
+    // Lógica de login aqui
+  };
 
-const Cat = ({id, nome, sobrenome, idade}) => {
-  let texto = (idade <=1) ? "ano" : "anos"
+  const handleCreateAccount = () => {
+    // Aqui você pode adicionar a lógica para criar uma conta
+  };
+
+  const handleForgotPassword = () => {
+    // Aqui você pode adicionar a lógica para recuperar a senha
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword); // Alternar entre mostrar e ocultar a senha
+  };
+
   
-  return (
-    <Link href={{
-      pathname: "/gatos/[id]",
-      params: {id: id}
-    }}>Oi, Eu sou {getNomeCompleto(nome, sobrenome).toUpperCase()}, e eu tenho {(idade)} {texto} e meu id é {id}</Link>
-  );
-}
 
-
-
-function IFAL() {
-
-    
-    
   return (
     <View style={styles.container}>
-      <Cat id={1} nome="Black" sobrenome="Panterinha" idade={3} />
-      <Cat id={2} nome="Garfield" sobrenome="Lasanha" idade={4}/>
-      <Cat id={3} nome="Apolo" sobrenome="God" idade={1}/>
-      <StatusBar style="auto" />
-    
-    
-    
-    <Link href="/calculadora">Abrir Calculadora</Link>
-    <Link href="/calculadora" asChild>
-      <Pressable>
-        <Text>Abrir Calculadora com o Pressable</Text>
-      </Pressable>
-    </Link>  
-    <Link href="/cliques" asChild>
-      <Button title="Abrir Contador de Cliques"/>
-    </Link>
-    <StatusBar style="auto"/>
+      <View style={styles.logoContainer}>
+  <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
+</View>
 
-
-    <Text></Text>
+      
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <View style={styles.passwordInputContainer}>
+        <TextInput
+          style={styles.passwordInput}
+          placeholder="Senha"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword} // Ocultar a senha se showPassword for false
+        />
+        {/* Botão para alternar a visibilidade da senha */}
+        <TouchableOpacity style={styles.showPasswordButton} onPress={toggleShowPassword}>
+          <Text style={styles.showPasswordButtonText}>{showPassword ? 'Ocultar' : 'Mostrar'}</Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Link href="introducao" asChild>
+        <Text style={styles.buttonText}>Login</Text>
+        </Link>
+      </TouchableOpacity>
+      
+      <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
+      <Link href="criacaoConta" asChild>
+      <Text style={styles.createAccountButtonText}>Criar conta</Text>
+      </Link>
+        
+        
+      </TouchableOpacity>
+      
+      <TouchableOpacity style={styles.forgotPasswordButton} onPress={handleForgotPassword}>
+        <Text style={styles.forgotPasswordButtonText}>Esqueceu a senha?</Text>
+      </TouchableOpacity>
+      
     </View>
-
-
   );
-  
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: '#CCCCFF',
+  },
+  
+  input: {
+    width: '100%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  passwordInputContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  passwordInput: {
+    flex: 1,
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  showPasswordButton: {
+    padding: 10,
+  },
+  showPasswordButtonText: {
+    color: 'blue',
+    fontSize: 16,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+  },
+  button: {
+    backgroundColor: 'blue',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  forgotPasswordButtonText: {
+    color: 'blue',
+    fontSize: 16,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+  },
+  createAccountButton: {
+    marginTop: 10,
+  },
+  createAccountButtonText: {
+    color: 'blue',
+    fontSize: 16,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
   },
 });
 
-export default BemEstar;
+export default LoginScreen;
