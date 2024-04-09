@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ImageBackground, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import { Link } from 'expo-router';
 
 const TelaPersonalizada = () => {
   return (
@@ -16,13 +17,14 @@ const TelaPersonalizada = () => {
       </ImageBackground>
       </View>
 
-      
       <View style={styles.button}>
+      <Link href="pergunta1" asChild>
       <Button style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}} mode="text" onPress={()=>
       console.log('Pressed')} labelStyle={{ color: 'black', fontSize: 18}}>
         Iniciar
       </Button>
-      </View>
+      </Link>
+        </View>
     </View>
   );
 };
