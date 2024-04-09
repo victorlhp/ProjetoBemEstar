@@ -27,16 +27,9 @@ const CriarConta = () => {
   return (
     <View style={styles.container}>
       {/* Logomarca ao fundo com efeito de marca d'água */}
-      {/* <View style={styles.logoBackground}> */}
+  
         {/* Campos de email, senha e repetir senha */}
-        {/* <TextInput
-          placeholder="Email"
-          style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-        /> */}
-
-        <ImageBackground
+      <ImageBackground
         source={require('./../assets/logoBemEstar.png')}
         style={styles.logoBackground}
         resizeMode="contain"
