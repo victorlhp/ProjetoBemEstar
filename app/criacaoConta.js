@@ -33,6 +33,7 @@ const CriarConta = () => {
         source={require('./../assets/logoBemEstar.png')}
         style={styles.logoBackground}
         resizeMode="contain"
+        
       />
 
         <View style={styles.formContainer}>
@@ -86,12 +87,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#CCCCFF', // Cor de fundo
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   logoBackground: {
     width: '100%',
     aspectRatio: 2, // Ajuste conforme necessário para a proporção da sua logomarca
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   formContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.5)', // Cor de fundo com transparência para efeito de marca d'água

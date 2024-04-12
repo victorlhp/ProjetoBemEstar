@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 415, // Largura da logomarca
-    height: 800, // Altura da logomarca
+    height: 700, // Altura da logomarca
     
   },
   
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
     fontSize: 25,
     fontWeight: 'bold',
-    
   },
   
   text: {

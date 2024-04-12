@@ -35,8 +35,8 @@ const TelaPergunta = () => {
 const styles = StyleSheet.create({
   fullScreenBackground: {
     flex: 1,
-    width: '100%',
-    height: Dimensions.get('window').height, // Garante que a imagem preencha a altura da tela
+    width: 415, // Largura da logomarca
+    height: 700, // Altura da logomarca
   },
   contentContainer: {
     flex: 1,
@@ -44,30 +44,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pergunta: {
-    fontSize: 24,
+    fontSize: 25,
     textAlign: 'center',
     marginBottom: 20,
     color: '#000000', // Considerando uma cor que se destaque sobre a logomarca
+    paddingHorizontal: 25,
+    fontWeight: '100'
   },
   botoesContainer: {
     flexDirection: 'row',
-    
-    
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    marginVertical: 20,
   },
   botao: {
-    backgroundColor: 'blue',
-    paddingVertical: 15,
+    //backgroundColor: 'blue',
+    paddingVertical: 25,
     paddingHorizontal: 30,
     marginHorizontal: 10,
     borderRadius: 10,
-    
-    
   },
   botaoTexto: {
     fontSize: 18,
-    color: 'white',
+    color: 'black',
     textAlign: 'center',
-    
   },
 });
 
