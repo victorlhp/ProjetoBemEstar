@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Pressable, ImageBackground, StyleSheet } from 'react-native';
+import { Link } from 'expo-router';
 
 const TelaPergunta = () => {
   const handleResposta = (resposta) => {
@@ -20,12 +21,22 @@ const TelaPergunta = () => {
 
         {/* Botões de resposta */}
         <View style={styles.botoesContainer}>
-          <TouchableOpacity style={styles.botao} onPress={() => handleResposta('Sim')}>
+        <View>
+        <Link href="pergunta2" asChild>
+          <Pressable style={styles.botao} onPress={() => handleResposta('Sim')}>
             <Text style={styles.botaoTexto}>Sim</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.botao} onPress={() => handleResposta('Não')}>
+          </Pressable>
+          </Link>
+          </View>
+          
+          <View>
+          <Link href="pergunta2" asChild>
+          <Pressable style={styles.botao} onPress={() => handleResposta('Não')}>
             <Text style={styles.botaoTexto}>Não</Text>
-          </TouchableOpacity>
+          </Pressable>
+          </Link>
+          </View>
+
         </View>
       </View>
     </ImageBackground>
