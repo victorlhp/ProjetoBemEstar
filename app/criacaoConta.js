@@ -72,7 +72,7 @@ const CriarConta = () => {
         {/* Botão "Criar Conta" */}
         
         <Pressable style={styles.button} onPress={handleCriarConta}>
-          <Link href="/" asChild>
+          <Link href="login" asChild>
           <Text style={styles.buttonText}>Criar Conta</Text>
           </Link>
         </Pressable>
