@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
 
-const TelaPergunta2 = () => {
+const TelaPergunta10 = () => {
   const handleResposta = (resposta) => {
     // Lógica para lidar com a resposta
     console.log('Resposta selecionada:', resposta);
@@ -17,12 +17,12 @@ const TelaPergunta2 = () => {
     >
       <View style={styles.contentContainer}>
         {/* Pergunta ao centro da tela */}
-        <Text style={styles.pergunta}>Você tem tido problemas para relaxar ou se acalmar ultimamente?</Text>
+        <Text style={styles.pergunta}>Você tem sentido um desconforto excessivo em situações que envolvem interações sociais ou desafios pessoais?</Text>
 
         {/* Botões de resposta */}
         <View style={styles.botoesContainer}>
         <View>
-        <Link href="pergunta3" asChild>
+        <Link href="introducao" asChild>
           <TouchableOpacity style={styles.botao} onPress={() => handleResposta('Sim')}>
             <Text style={styles.botaoTexto}>Sim</Text>
           </TouchableOpacity>
@@ -30,7 +30,7 @@ const TelaPergunta2 = () => {
           </View>
 
           <View>
-          <Link href="pergunta3" asChild>
+          <Link href="introducao" asChild>
           <TouchableOpacity style={styles.botao} onPress={() => handleResposta('Não')}>
             <Text style={styles.botaoTexto}>Não</Text>
           </TouchableOpacity>
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TelaPergunta2;
+export default TelaPergunta10;
