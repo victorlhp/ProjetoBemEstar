@@ -22,7 +22,7 @@ const TelaPergunta10 = () => {
         {/* Botões de resposta */}
         <View style={styles.botoesContainer}>
         <View>
-        <Link href="introducao" asChild>
+        <Link href="resultado" asChild>
           <TouchableOpacity style={styles.botao} onPress={() => handleResposta('Sim')}>
             <Text style={styles.botaoTexto}>Sim</Text>
           </TouchableOpacity>
@@ -30,7 +30,7 @@ const TelaPergunta10 = () => {
           </View>
 
           <View>
-          <Link href="introducao" asChild>
+          <Link href="resultado" asChild>
           <TouchableOpacity style={styles.botao} onPress={() => handleResposta('Não')}>
             <Text style={styles.botaoTexto}>Não</Text>
           </TouchableOpacity>

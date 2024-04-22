@@ -3,6 +3,7 @@ import { View, ImageBackground, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 
+
 const TelaPersonalizada = () => {
   return (
     <View style={styles.container}>
