@@ -1,87 +1,40 @@
-// TESTE 2
+// PRINCIPAL
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Image } from 'react-native';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { Link, useRouter } from 'expo-router';
-
-// Firebase Configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAHO7rhIrfypj-x27HetVym-08K9YmE22U",
-  authDomain: "bem-estar-3fb2c.firebaseapp.com",
-  databaseURL: "https://bem-estar-3fb2c-default-rtdb.firebaseio.com",
-  projectId: "bem-estar-3fb2c",
-  storageBucket: "bem-estar-3fb2c.appspot.com",
-  messagingSenderId: "123743475693",
-  appId: "1:123743475693:web:36043abf2701a929eff9e4",
-  measurementId: "G-NFR3GLN5R7"
-};
-
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-GoogleSignin.configure({
-  webClientId: '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', // ID do cliente da Web (obtido no Console do Google Cloud)
-});
+import { Link } from 'expo-router';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Estado para controlar a visibilidade da senha
 
-  const handleLogin = async () => {
-    try {
-      // Verifique se o dispositivo suporta o Google Play Services
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-
-      // Obtenha o ID do token do usuário
-      const { idToken } = await GoogleSignin.signIn();
-
-      // Crie uma credencial do Google com o token
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-      // Faça login com a credencial
-      await auth().signInWithCredential(googleCredential);
-
-      console.log('Login com o Google realizado com sucesso!');
-    } catch (error) {
-      console.error('Erro ao fazer login com o Google:', error.message);
-    }
+  const handleLogin = () => {
+    // Lógica de login aqui
   };
 
-  const handleCreateAccount = async () => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      Alert.alert('Conta criada', 'Sua conta foi criada com sucesso!');
-      router.push('/introducao'); // Navegar para a tela de introdução
-    } catch (error) {
-      Alert.alert('Erro na criação da conta', error.message);
-    }
+  const handleCreateAccount = () => {
+    // Aqui você pode adicionar a lógica para criar uma conta
   };
 
-  const handleForgotPassword = async () => {
-    try {
-      await sendPasswordResetEmail(auth, email);
-      Alert.alert('Email enviado', 'Verifique seu email para redefinir a senha.');
-    } catch (error) {
-      Alert.alert('Erro na recuperação de senha', error.message);
-    }
+  const handleForgotPassword = () => {
+    // Aqui você pode adicionar a lógica para recuperar a senha
   };
 
   const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword(!showPassword); // Alternar entre mostrar e ocultar a senha
   };
+
+  
 
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
-      </View>
+  <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
+</View>
 
+      
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -96,23 +49,31 @@ const LoginScreen = () => {
           placeholder="Senha"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry={!showPassword}
+          secureTextEntry={!showPassword} // Ocultar a senha se showPassword for false
         />
+        {/* Botão para alternar a visibilidade da senha */}
         <TouchableOpacity style={styles.showPasswordButton} onPress={toggleShowPassword}>
           <Text style={styles.showPasswordButtonText}>{showPassword ? 'Ocultar' : 'Mostrar'}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Link href="introducao" asChild>
         <Text style={styles.buttonText}>Login</Text>
+        </Link>
       </TouchableOpacity>
-
+      
       <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
-        <Text style={styles.createAccountButtonText}>Criar conta</Text>
+      <Link href="criacaoConta" asChild>
+      <Text style={styles.createAccountButtonText}>Criar conta</Text>
+      </Link>
+        
+        
       </TouchableOpacity>
-
+      
       <TouchableOpacity style={styles.forgotPasswordButton} onPress={handleForgotPassword}>
         <Text style={styles.forgotPasswordButtonText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
+      
     </View>
   );
 };
@@ -125,6 +86,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#CCCCFF',
   },
+  
   input: {
     width: '100%',
     height: 40,

@@ -1,61 +1,66 @@
-// TESTE 2
+// TESTE 1
 
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Image } from 'react-native';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { Link, useRouter } from 'expo-router';
 
-// Firebase Configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAHO7rhIrfypj-x27HetVym-08K9YmE22U",
-  authDomain: "bem-estar-3fb2c.firebaseapp.com",
-  databaseURL: "https://bem-estar-3fb2c-default-rtdb.firebaseio.com",
-  projectId: "bem-estar-3fb2c",
-  storageBucket: "bem-estar-3fb2c.appspot.com",
-  messagingSenderId: "123743475693",
-  appId: "1:123743475693:web:36043abf2701a929eff9e4",
-  measurementId: "G-NFR3GLN5R7"
-};
+    apiKey: "AIzaSyAHO7rhIrfypj-x27HetVym-08K9YmE22U",
+    authDomain: "bem-estar-3fb2c.firebaseapp.com",
+    databaseURL: "https://bem-estar-3fb2c-default-rtdb.firebaseio.com",
+    projectId: "bem-estar-3fb2c",
+    storageBucket: "bem-estar-3fb2c.appspot.com",
+    messagingSenderId: "123743475693",
+    appId: "1:123743475693:web:36043abf2701a929eff9e4",
+    measurementId: "G-NFR3GLN5R7"
+  };
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  
+  const auth = getAuth();
 
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-GoogleSignin.configure({
-  webClientId: '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', // ID do cliente da Web (obtido no Console do Google Cloud)
+// Vincular a função ao formulário de criação de usuário
+document.getElementById("createUserForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+    // Obter o e-mail e a senha do usuário
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    try {
+        // Criar um novo usuário com e-mail e senha
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        // Usuário criado com sucesso
+        const user = userCredential.user;
+        alert("Usuário criado com sucesso!");
+    } catch (error) {
+        // Erro ao criar o usuário
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert("Erro ao criar o usuário: " + errorMessage);
+    }
 });
+
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter(); // Hook para navegação
 
   const handleLogin = async () => {
     try {
-      // Verifique se o dispositivo suporta o Google Play Services
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-
-      // Obtenha o ID do token do usuário
-      const { idToken } = await GoogleSignin.signIn();
-
-      // Crie uma credencial do Google com o token
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-      // Faça login com a credencial
-      await auth().signInWithCredential(googleCredential);
-
-      console.log('Login com o Google realizado com sucesso!');
+      await auth().signInWithEmailAndPassword(email, password);
+      Alert.alert('Login bem-sucedido', 'Você está logado!');
+      router.push('/introducao'); // Navegar para a tela de introdução
     } catch (error) {
-      console.error('Erro ao fazer login com o Google:', error.message);
+      Alert.alert('Erro de login', error.message);
     }
   };
 
   const handleCreateAccount = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await auth().createUserWithEmailAndPassword(email, password);
       Alert.alert('Conta criada', 'Sua conta foi criada com sucesso!');
       router.push('/introducao'); // Navegar para a tela de introdução
     } catch (error) {
@@ -65,7 +70,7 @@ const LoginScreen = () => {
 
   const handleForgotPassword = async () => {
     try {
-      await sendPasswordResetEmail(auth, email);
+      await auth().sendPasswordResetEmail(email);
       Alert.alert('Email enviado', 'Verifique seu email para redefinir a senha.');
     } catch (error) {
       Alert.alert('Erro na recuperação de senha', error.message);
@@ -103,10 +108,12 @@ const LoginScreen = () => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <Link href="introducao" asChild></Link>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
+        <Link href="criacaoConta" as Child></Link>
         <Text style={styles.createAccountButtonText}>Criar conta</Text>
       </TouchableOpacity>
 
