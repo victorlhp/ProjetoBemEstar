@@ -35,11 +35,16 @@ const TelaPergunta = () => {
         <Text style={styles.pergunta}>
           Você tem sentido um medo ou preocupação excessiva na maioria dos dias nas últimas semanas?
         </Text>
-        
+
         <View style={styles.botoesContainer}>
           <View>
             <Link href="pergunta2" asChild>
-              <Pressable style={styles.botao1} onPress={() => handleResposta('Sim')}>
+              <Pressable style={styles.botao1} onPress={() => handleResposta('Não')}
+                // style={({ pressed }) => [
+                //   styles.botao1,
+                //   pressed ? styles.botao1Pressed : {},
+                
+                // ]}>
                 <Text style={styles.botaoTexto}>A maior parte do tempo</Text>
               </Pressable>
             </Link>
@@ -98,6 +103,16 @@ const styles = StyleSheet.create({
   },
   botao1: {
     backgroundColor: '#CCFFCC',
+    paddingVertical: 25,
+    paddingHorizontal: 100,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+
+
+  botao1Pressed: {
+    backgroundColor: '#7a997a',
     paddingVertical: 25,
     paddingHorizontal: 100,
     marginHorizontal: 10,
