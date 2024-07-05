@@ -21,7 +21,7 @@ const TelaPersonalizada = () => {
       <View style={styles.button}>
       <Link href="pergunta1" asChild>
       <Button style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}} mode="text" onPress={()=>
-      console.log('Pressed')} labelStyle={{ color: 'black', fontSize: 18}}>
+      console.log('Iniciar')} labelStyle={{ color: 'black', fontSize: 18}}>
         Iniciar
       </Button>
       </Link>
@@ -33,7 +33,7 @@ const TelaPersonalizada = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#CCFFCC', // Cor de fundo
+    backgroundColor: '#9ed9', // Cor de fundo
   },
   
   logoBackground: {
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     alignItems:'center',
     fontSize: 25,
-    fontWeight: 'bold',
   },
   
   text: {
