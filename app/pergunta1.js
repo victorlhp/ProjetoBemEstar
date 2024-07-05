@@ -29,24 +29,39 @@ const TelaPergunta = () => {
       source={require('./../assets/logoBemEstar.png')}
       style={styles.fullScreenBackground}
       resizeMode="cover"
-      imageStyle={{ opacity: 0.2 }}
+      imageStyle={{ opacity: 0.2, flex: 1 }}
     >
       <View style={styles.contentContainer}>
         <Text style={styles.pergunta}>
           Você tem sentido um medo ou preocupação excessiva na maioria dos dias nas últimas semanas?
         </Text>
+        
         <View style={styles.botoesContainer}>
           <View>
             <Link href="pergunta2" asChild>
-              <Pressable style={styles.botao} onPress={() => handleResposta('Sim')}>
-                <Text style={styles.botaoTexto}>Sim</Text>
+              <Pressable style={styles.botao1} onPress={() => handleResposta('Sim')}>
+                <Text style={styles.botaoTexto}>A maior parte do tempo</Text>
               </Pressable>
             </Link>
           </View>
           <View>
             <Link href="pergunta2" asChild>
-              <Pressable style={styles.botao} onPress={() => handleResposta('Não')}>
-                <Text style={styles.botaoTexto}>Não</Text>
+              <Pressable style={styles.botao2} onPress={() => handleResposta('Não')}>
+                <Text style={styles.botaoTexto}>Boa parte do tempo</Text>
+              </Pressable>
+            </Link>
+          </View>
+          <View>
+            <Link href="pergunta2" asChild>
+              <Pressable style={styles.botao3} onPress={() => handleResposta('Sim')}>
+                <Text style={styles.botaoTexto}>De vez em quando</Text>
+              </Pressable>
+            </Link>
+          </View>
+          <View>
+            <Link href="pergunta2" asChild>
+              <Pressable style={styles.botao4} onPress={() => handleResposta('Sim')}>
+                <Text style={styles.botaoTexto}>Raramente</Text>
               </Pressable>
             </Link>
           </View>
@@ -58,9 +73,10 @@ const TelaPergunta = () => {
 
 const styles = StyleSheet.create({
   fullScreenBackground: {
+    backgroundColor: '#CCCCFF',
     flex: 1,
-    width: 415,
-    height: 700,
+    width: 435,
+    height: 500,
   },
   contentContainer: {
     flex: 1,
@@ -76,17 +92,46 @@ const styles = StyleSheet.create({
     fontWeight: '100',
   },
   botoesContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    flexDirection: 'column',
     marginVertical: 20,
+    top: 100,
   },
-  botao: {
+  botao1: {
+    backgroundColor: '#CCFFCC',
+    paddingVertical: 25,
+    paddingHorizontal: 100,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+
+  botao2: {
+    backgroundColor: '#CCF6FF',
     paddingVertical: 25,
     paddingHorizontal: 30,
     marginHorizontal: 10,
+    marginVertical: 15,
     borderRadius: 10,
   },
+
+  botao3: {
+    backgroundColor: '#FFFACC',
+    paddingVertical: 25,
+    paddingHorizontal: 30,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+
+  botao4: {
+    backgroundColor: '#FFCCCC',
+    paddingVertical: 25,
+    paddingHorizontal: 30,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+
   botaoTexto: {
     fontSize: 18,
     color: 'black',

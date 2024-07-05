@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, Pressable, ImageBackground, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
 
 const TelaPergunta2 = () => {
@@ -13,7 +13,7 @@ const TelaPergunta2 = () => {
       source={require('./../assets/logoBemEstar.png')} // Ajuste para o caminho correto
       style={styles.fullScreenBackground}
       resizeMode="cover" // Isso garante que a imagem cubra o fundo, mas pode alterar sua proporção
-      imageStyle={{ opacity: 0.2 }}
+      imageStyle={{ opacity: 0.2, flex: 1, }}
     >
       <View style={styles.contentContainer}>
         {/* Pergunta ao centro da tela */}
@@ -21,20 +21,33 @@ const TelaPergunta2 = () => {
 
         {/* Botões de resposta */}
         <View style={styles.botoesContainer}>
-        <View>
-        <Link href="pergunta3" asChild>
-          <TouchableOpacity style={styles.botao} onPress={() => handleResposta('Sim')}>
-            <Text style={styles.botaoTexto}>Sim</Text>
-          </TouchableOpacity>
-          </Link>
-          </View>
-
           <View>
-          <Link href="pergunta3" asChild>
-          <TouchableOpacity style={styles.botao} onPress={() => handleResposta('Não')}>
-            <Text style={styles.botaoTexto}>Não</Text>
-          </TouchableOpacity>
-          </Link>
+            <Link href="pergunta3" asChild>
+              <Pressable style={styles.botao1} onPress={() => handleResposta('Sim')}>
+                <Text style={styles.botaoTexto}>Sim, demais</Text>
+              </Pressable>
+            </Link>
+          </View>
+          <View>
+            <Link href="pergunta3" asChild>
+              <Pressable style={styles.botao2} onPress={() => handleResposta('Não')}>
+                <Text style={styles.botaoTexto}>Bastante</Text>
+              </Pressable>
+            </Link>
+          </View>
+          <View>
+            <Link href="pergunta3" asChild>
+              <Pressable style={styles.botao3} onPress={() => handleResposta('Sim')}>
+                <Text style={styles.botaoTexto}>Um pouco</Text>
+              </Pressable>
+            </Link>
+          </View>
+          <View>
+            <Link href="pergunta3" asChild>
+              <Pressable style={styles.botao4} onPress={() => handleResposta('Sim')}>
+                <Text style={styles.botaoTexto}>Não me sinto assim</Text>
+              </Pressable>
+            </Link>
           </View>
         </View>
       </View>
@@ -44,9 +57,10 @@ const TelaPergunta2 = () => {
 
 const styles = StyleSheet.create({
   fullScreenBackground: {
+    backgroundColor: '#CCCCFF',
     flex: 1,
-    width: 415, // Largura da logomarca
-    height: 700, // Altura da logomarca
+    width: 435,
+    height: 500,
   },
   contentContainer: {
     flex: 1,
@@ -57,23 +71,51 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: 'center',
     marginBottom: 20,
-    color: '#000000', // Considerando uma cor que se destaque sobre a logomarca
+    color: '#000000',
     paddingHorizontal: 25,
-    fontWeight: '100'
+    fontWeight: '100',
   },
   botoesContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    flexDirection: 'column',
     marginVertical: 20,
+    top: 100,
   },
-  botao: {
-    //backgroundColor: 'blue',
+  botao1: {
+    backgroundColor: '#CCFFCC',
+    paddingVertical: 25,
+    paddingHorizontal: 100,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+
+  botao2: {
+    backgroundColor: '#CCF6FF',
     paddingVertical: 25,
     paddingHorizontal: 30,
     marginHorizontal: 10,
+    marginVertical: 15,
     borderRadius: 10,
   },
+
+  botao3: {
+    backgroundColor: '#FFFACC',
+    paddingVertical: 25,
+    paddingHorizontal: 30,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+
+  botao4: {
+    backgroundColor: '#FFCCCC',
+    paddingVertical: 25,
+    paddingHorizontal: 30,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+
   botaoTexto: {
     fontSize: 18,
     color: 'black',
