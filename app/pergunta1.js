@@ -38,13 +38,8 @@ const TelaPergunta = () => {
 
         <View style={styles.botoesContainer}>
           <View>
-            <Link href="pergunta2" asChild>
-              <Pressable style={styles.botao1} onPress={() => handleResposta('Não')}
-                // style={({ pressed }) => [
-                //   styles.botao1,
-                //   pressed ? styles.botao1Pressed : {},
-                
-                // ]}>
+          <Link href="pergunta2" asChild>
+              <Pressable style={styles.botao1} onPress={() => handleResposta('Sim')}>
                 <Text style={styles.botaoTexto}>A maior parte do tempo</Text>
               </Pressable>
             </Link>
