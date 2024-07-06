@@ -4,24 +4,12 @@ import { Link } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TelaPergunta = () => {
-  const handleResposta = async (resposta) => {
-    // Define os valores das respostas
-    let valorResposta = null;
-    if (resposta === 'Sim') {
-      valorResposta = 1; // Valor para resposta "Sim"
-    } else if (resposta === 'Não') {
-      valorResposta = 0; // Valor para resposta "Não"
-    }
-
-    // Armazena o valor da resposta no AsyncStorage
+  const handleResposta = async (valorResposta) => {
     try {
-      await AsyncStorage.setItem('respostaTelaPergunta', JSON.stringify({ resposta, valorResposta }));
+      await AsyncStorage.setItem('respostaTelaPergunta', valorResposta.toString());
     } catch (error) {
       console.error('Erro ao armazenar a resposta:', error);
     }
-
-    // Lógica adicional para navegar para a próxima tela ou executar outra ação
-    // Por exemplo, você pode usar o Link para navegar para a próxima tela
   };
 
   return (
@@ -38,30 +26,30 @@ const TelaPergunta = () => {
 
         <View style={styles.botoesContainer}>
           <View>
-          <Link href="pergunta2" asChild>
-              <Pressable style={styles.botao1} onPress={() => handleResposta('Sim')}>
-                <Text style={styles.botaoTexto}>A maior parte do tempo</Text>
+            <Link href="pergunta2" asChild>
+              <Pressable style={styles.botao1} onPress={() => handleResposta(3)}>
+                <Text style={styles.botaoTexto}>A maior parte do tempo (3)</Text>
               </Pressable>
             </Link>
           </View>
           <View>
             <Link href="pergunta2" asChild>
-              <Pressable style={styles.botao2} onPress={() => handleResposta('Não')}>
-                <Text style={styles.botaoTexto}>Boa parte do tempo</Text>
+              <Pressable style={styles.botao2} onPress={() => handleResposta(2)}>
+                <Text style={styles.botaoTexto}>Boa parte do tempo (2)</Text>
               </Pressable>
             </Link>
           </View>
           <View>
             <Link href="pergunta2" asChild>
-              <Pressable style={styles.botao3} onPress={() => handleResposta('Sim')}>
-                <Text style={styles.botaoTexto}>De vez em quando</Text>
+              <Pressable style={styles.botao3} onPress={() => handleResposta(1)}>
+                <Text style={styles.botaoTexto}>De vez em quando (1)</Text>
               </Pressable>
             </Link>
           </View>
           <View>
             <Link href="pergunta2" asChild>
-              <Pressable style={styles.botao4} onPress={() => handleResposta('Sim')}>
-                <Text style={styles.botaoTexto}>Raramente</Text>
+              <Pressable style={styles.botao4} onPress={() => handleResposta(0)}>
+                <Text style={styles.botaoTexto}>Raramente (0)</Text>
               </Pressable>
             </Link>
           </View>
@@ -99,22 +87,11 @@ const styles = StyleSheet.create({
   botao1: {
     backgroundColor: '#CCFFCC',
     paddingVertical: 25,
-    paddingHorizontal: 100,
+    paddingHorizontal: 30,
     marginHorizontal: 10,
     marginVertical: 15,
     borderRadius: 10,
   },
-
-
-  botao1Pressed: {
-    backgroundColor: '#7a997a',
-    paddingVertical: 25,
-    paddingHorizontal: 100,
-    marginHorizontal: 10,
-    marginVertical: 15,
-    borderRadius: 10,
-  },
-
   botao2: {
     backgroundColor: '#CCF6FF',
     paddingVertical: 25,
@@ -123,7 +100,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     borderRadius: 10,
   },
-
   botao3: {
     backgroundColor: '#FFFACC',
     paddingVertical: 25,
@@ -132,7 +108,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     borderRadius: 10,
   },
-
   botao4: {
     backgroundColor: '#FFCCCC',
     paddingVertical: 25,
@@ -141,7 +116,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     borderRadius: 10,
   },
-
   botaoTexto: {
     fontSize: 18,
     color: 'black',
