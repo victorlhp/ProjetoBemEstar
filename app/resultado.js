@@ -1,63 +1,74 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const TelaResposta = () => {
-  const [nivelAnsiedade, setNivelAnsiedade] = useState(0);
+const ResultadoFinal = () => {
+  const [resultado, setResultado] = useState(null);
 
   useEffect(() => {
-    const obterResultados = async () => {
+    const calcularResultado = async () => {
       try {
-        let nivelTotal = 0;
-
-        // Loop sobre as 10 perguntas
+        let soma = 0;
         for (let i = 1; i <= 10; i++) {
-          const chave = `respostaPergunta${i}`;
-          const valorResposta = await AsyncStorage.getItem(chave);
-          if (valorResposta !== null) {
-            nivelTotal += parseInt(valorResposta, 10);
+          const resposta = await AsyncStorage.getItem(`respostaPergunta${i}`);
+          if (resposta) {
+            soma += parseInt(resposta, 10);
           }
         }
-
-        setNivelAnsiedade(nivelTotal);
+        setResultado(soma);
       } catch (error) {
-        console.error('Erro ao obter resultados:', error);
+        console.error('Erro ao calcular o resultado:', error);
       }
     };
 
-    obterResultados();
+    calcularResultado();
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Resultado Final</Text>
-      <Text style={styles.mensagem}>Seu nível de ansiedade é:</Text>
-      <Text style={styles.valor}>{nivelAnsiedade}</Text>
-    </View>
+    <ImageBackground
+      source={require('./../assets/logoBemEstar.png')}
+      style={styles.fullScreenBackground}
+      resizeMode="cover"
+      imageStyle={{ opacity: 0.2 }}
+    >
+      <View style={styles.contentContainer}>
+        <Text style={styles.resultadoTexto}>Seu nível de ansiedade é:</Text>
+        {resultado !== null ? (
+          <Text style={styles.resultado}>{resultado}</Text>
+        ) : (
+          <Text style={styles.loading}>Calculando...</Text>
+        )}
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  fullScreenBackground: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
   },
-  titulo: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  contentContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  resultadoTexto: {
+    fontSize: 25,
+    color: '#000000',
+    textAlign: 'center',
     marginBottom: 20,
   },
-  mensagem: {
-    fontSize: 18,
-    marginBottom: 10,
+  resultado: {
+    fontSize: 50,
+    color: '#000000',
+    textAlign: 'center',
   },
-  valor: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#FF0000',
+  loading: {
+    fontSize: 25,
+    color: '#000000',
+    textAlign: 'center',
   },
 });
 
-export default TelaResposta;
+export default ResultadoFinal;
