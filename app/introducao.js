@@ -4,6 +4,7 @@ import { Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 
 
+
 const TelaPersonalizada = () => {
   return (
     <View style={styles.container}>
@@ -19,7 +20,7 @@ const TelaPersonalizada = () => {
       </View>
 
       <View style={styles.button}>
-      <Link href="pergunta1" asChild>
+      <Link href="teste3pergunta" asChild>
       <Button style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}} mode='text' onPress={()=>
       console.log('Iniciar')} labelStyle={{ color: 'black', fontSize: 18}}>
         Iniciar
