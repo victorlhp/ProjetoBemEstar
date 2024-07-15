@@ -20,7 +20,7 @@ const TelaPersonalizada = () => {
       </View>
 
       <View style={styles.button}>
-      <Link href="teste3pergunta" asChild>
+      <Link href="perguntas" asChild>
       <Button style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}} mode='text' onPress={()=>
       console.log('Iniciar')} labelStyle={{ color: 'black', fontSize: 18}}>
         Iniciar
