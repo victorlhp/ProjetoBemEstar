@@ -141,7 +141,7 @@ const Pergunta = ({ indice, handleResposta }) => {
       source={require('./../assets/logoBemEstar.png')}
       style={styles.fullScreenBackground}
       resizeMode="cover"
-      imageStyle={{ opacity: 0.2, flex: 1 }}
+      imageStyle={{ opacity: 0.5, flex: 1, }}
     >
       <View style={styles.contentContainer}>
      
@@ -192,8 +192,8 @@ const styles = StyleSheet.create({
   fullScreenBackground: {
     backgroundColor: '#CCCCFF',
     flex: 1,
-    width: '100%',
-    height: '100%',
+    width: 435,
+    height: 500,
   },
   contentContainer: {
     flex: 1,
@@ -202,11 +202,12 @@ const styles = StyleSheet.create({
   },
   pergunta: {
     fontSize: 25,
+    fontStyle: 'italic',
     textAlign: 'center',
     marginBottom: 20,
     color: '#000000',
     paddingHorizontal: 25,
-    fontWeight: '100',
+    fontWeight: '300',
   },
   botoesContainer: {
     flexDirection: 'column',
