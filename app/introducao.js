@@ -28,6 +28,7 @@ const TelaPersonalizada = () => {
       </Link>
         </View>
     </View>
+    
   );
 };
 
