@@ -20,6 +20,15 @@ const TelaPersonalizada = () => {
       </View>
 
       <View style={styles.button}>
+      <Link href="referencias" asChild>
+      <Button style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}} mode='text' onPress={()=>
+      console.log('Sobre')} labelStyle={{ color: 'black', fontSize: 18}}>
+        Sobre
+      </Button>
+      </Link>
+        </View>
+
+      <View style={styles.button2}>
       <Link href="perguntas" asChild>
       <Button style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}} mode='text' onPress={()=>
       console.log('Iniciar')} labelStyle={{ color: 'black', fontSize: 18}}>
@@ -64,8 +73,16 @@ const styles = StyleSheet.create({
    button: {
         flex: 1,
         justifyContent: 'flex-end',
-        alignItems: 'flex-end',
+        alignItems: 'flex-start',
+        top: 83,
+        
   },
+
+  button2: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+},
   
 });
 
