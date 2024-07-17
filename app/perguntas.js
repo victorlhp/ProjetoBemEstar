@@ -141,7 +141,7 @@ const Pergunta = ({ indice, handleResposta }) => {
       source={require('./../assets/logoBemEstar.png')}
       style={styles.fullScreenBackground}
       resizeMode="cover"
-      imageStyle={{ opacity: 0.5, flex: 1, }}
+      imageStyle={{ opacity: 0.1, flex: 1, }}
     >
       <View style={styles.contentContainer}>
      
