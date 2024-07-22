@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#CCCCFF',
+    backgroundColor: '#9ed9',
   },
   resultadoTexto: {
     fontSize: 25,

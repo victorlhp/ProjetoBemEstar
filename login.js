@@ -1,55 +1,53 @@
-// PRINCIPAL
+// app/login.js
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Image } from 'react-native';
 import { Link } from 'expo-router';
-// import { auth } from '../firebase';
-// import * as Google from 'expo-auth-session/providers/google';
-// import * as WebBrowser from 'expo-web-browser';
-// import { getAuth, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-// import { Stack } from 'expo-router';
-// import { onAuthStateChanged } from 'firebase/auth';
-// import { auth } from './firebase';
+import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
+import { getAuth, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+import { auth } from '../firebase';
 
-
-// WebBrowser.maybeCompleteAuthSession();
+WebBrowser.maybeCompleteAuthSession();
 
 const LoginScreen = () => {
-  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); 
-// Estado para controlar a visibilidade da senha
+  const [showPassword, setShowPassword] = useState(false);
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    clientId: '1:123743475693:android:e65a40511829123743475693-469jbmsbpq8nn59ob35nl1cqfdj1mqhs.apps.googleusercontent.comcecbeff9e4', // Substitua pelo seu clientId do Google
+  });
 
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { id_token } = response.params;
+      const credential = GoogleAuthProvider.credential(id_token);
+      signInWithCredential(auth, credential);
+    }
+  }, [response]);
 
-
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleLogin = () => {
     // Lógica de login aqui
   };
 
   const handleCreateAccount = () => {
-    // Aqui você pode adicionar a lógica para criar uma conta
+    // Lógica para criar uma conta
   };
 
   const handleForgotPassword = () => {
-    // Aqui você pode adicionar a lógica para recuperar a senha
+    // Lógica para recuperar a senha
   };
-
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword); // Alternar entre mostrar e ocultar a senha
-  };
-
-  
 
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-  <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
-</View>
-
-      
+        <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
+      </View>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -64,31 +62,32 @@ const LoginScreen = () => {
           placeholder="Senha"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry={!showPassword} // Ocultar a senha se showPassword for false
+          secureTextEntry={!showPassword}
         />
-        {/* Botão para alternar a visibilidade da senha */}
         <TouchableOpacity style={styles.showPasswordButton} onPress={toggleShowPassword}>
           <Text style={styles.showPasswordButtonText}>{showPassword ? 'Ocultar' : 'Mostrar'}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Link href="introducao" asChild>
-        <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Login</Text>
         </Link>
       </TouchableOpacity>
-      
       <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
-      <Link href="criacaoConta" asChild>
-      <Text style={styles.createAccountButtonText}>Criar conta</Text>
-      </Link>
-        
-        
+        <Link href="criacaoConta" asChild>
+          <Text style={styles.createAccountButtonText}>Criar conta</Text>
+        </Link>
       </TouchableOpacity>
-      
       <TouchableOpacity style={styles.forgotPasswordButton} onPress={handleForgotPassword}>
         <Text style={styles.forgotPasswordButtonText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
-      
+      <TouchableOpacity
+        style={styles.googleButton}
+        disabled={!request}
+        onPress={() => promptAsync()}
+      >
+        <Text style={styles.googleButtonText}>Login com Google</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -101,7 +100,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#CCCCFF',
   },
-  
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  logo: {
+    width: 200,
+    height: 200,
+  },
   input: {
     width: '100%',
     height: 40,
@@ -160,6 +166,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
+  },
+  googleButton: {
+    backgroundColor: '#4285F4',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  googleButtonText: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
 
