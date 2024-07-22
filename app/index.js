@@ -1,16 +1,13 @@
 // PRINCIPAL
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import { Image } from 'react-native';
-import { Link } from 'expo-router';
-// import { auth } from '../firebase';
-// import * as Google from 'expo-auth-session/providers/google';
-// import * as WebBrowser from 'expo-web-browser';
-// import { getAuth, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-// import { Stack } from 'expo-router';
-// import { onAuthStateChanged } from 'firebase/auth';
-// import { auth } from './firebase';
+import { Link, useRouter } from 'expo-router';
+import { app } from './firebaseConfig'
+import { signInWithEmailAndPassword, initializeAuth, getReactNativePersistence } from "firebase/auth";
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 // WebBrowser.maybeCompleteAuthSession();
@@ -88,10 +85,41 @@ const LoginScreen = () => {
       <TouchableOpacity style={styles.forgotPasswordButton} onPress={handleForgotPassword}>
         <Text style={styles.forgotPasswordButtonText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
+
+      <Button title='Login' style={styles.button} onPress={() =>{
+        fazerLogin(); 
+        }}/>
       
     </View>
   );
 };
+
+const fazerLogin = () => {
+  // Initialize Firebase Authentication and get a reference to the service
+  const auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+  });
+  
+
+  signInWithEmailAndPassword(auth, 'victor270196@gmail.com', 'jl.31/03')
+    .then((userCredential) => {
+      // Signed in 
+      const router = useRouter();
+      const user = userCredential.user;
+      console.log('Login realizado com sucesso!');
+      console.log(user.uid);
+      console.log(user);
+      // ...
+      router.replace('/introducao');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('Usuário não existe!');
+      console.log(errorCode);
+      console.log(errorMessage);
+    });  
+}
 
 const styles = StyleSheet.create({
   container: {

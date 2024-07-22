@@ -6,3 +6,9 @@ const config = getDefaultConfig(__dirname);
 config.resolver.sourceExts.push('cjs');
 
 module.exports = config;
+
+
+
+{/* <Button title='Login' style={styles.button} onPress={() =>{
+        fazerLogin(); 
+        }}/> */}
