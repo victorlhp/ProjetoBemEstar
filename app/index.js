@@ -9,14 +9,12 @@ import { signInWithEmailAndPassword, initializeAuth, getReactNativePersistence }
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
-// WebBrowser.maybeCompleteAuthSession();
-
 const LoginScreen = () => {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false); 
+  const router = useRouter();
 // Estado para controlar a visibilidade da senha
 
 
@@ -68,11 +66,11 @@ const LoginScreen = () => {
           <Text style={styles.showPasswordButtonText}>{showPassword ? 'Ocultar' : 'Mostrar'}</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Link href="introducao" asChild>
-        <Text style={styles.buttonText}>Login</Text>
-        </Link>
-      </TouchableOpacity>
+
+      <Button title='Login' style={styles.button} onPress={() =>{
+        fazerLogin(email, password, router); 
+        }}/>
+
       
       <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
       <Link href="criacaoConta" asChild>
@@ -86,31 +84,30 @@ const LoginScreen = () => {
         <Text style={styles.forgotPasswordButtonText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
 
-      <Button title='Login' style={styles.button} onPress={() =>{
-        fazerLogin(); 
-        }}/>
+      
       
     </View>
   );
 };
 
-const fazerLogin = () => {
+const fazerLogin = (email, password, router) => {
   // Initialize Firebase Authentication and get a reference to the service
   const auth = initializeAuth(app, {
     persistence: getReactNativePersistence(ReactNativeAsyncStorage)
   });
   
 
-  signInWithEmailAndPassword(auth, 'victor270196@gmail.com', 'jl.31/03')
+  signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+      console.log(email, password);
       // Signed in 
-      const router = useRouter();
+      
       const user = userCredential.user;
-      console.log('Login realizado com sucesso!');
-      console.log(user.uid);
       console.log(user);
+      console.log('Login realizado com sucesso!');
+      router.replace ('/introducao');
       // ...
-      router.replace('/introducao');
+     
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -162,27 +159,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
-  button: {
-    backgroundColor: 'blue',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
+
   buttonText: {
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
   },
+  
   forgotPasswordButtonText: {
     color: 'blue',
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
+
   createAccountButton: {
     marginTop: 10,
   },
+
   createAccountButtonText: {
     color: 'blue',
     fontSize: 16,
