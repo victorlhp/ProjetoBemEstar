@@ -1,7 +1,7 @@
 // PRINCIPAL
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button, Pressable } from 'react-native';
 import { Image } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { app } from './firebaseConfig'
@@ -72,13 +72,11 @@ const LoginScreen = () => {
         }}/>
 
       
-      <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
+      <Pressable style={styles.createAccountButton} onPress={handleCreateAccount}>
       <Link href="criacaoConta" asChild>
       <Text style={styles.createAccountButtonText}>Criar conta</Text>
       </Link>
-        
-        
-      </TouchableOpacity>
+        </Pressable>
       
       <TouchableOpacity style={styles.forgotPasswordButton} onPress={handleForgotPassword}>
         <Text style={styles.forgotPasswordButtonText}>Esqueceu a senha?</Text>
@@ -129,23 +127,25 @@ const styles = StyleSheet.create({
   
   input: {
     width: '100%',
-    height: 40,
+    height: 50,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000',
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    
   },
   passwordInputContainer: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   passwordInput: {
     flex: 1,
-    height: 40,
+    height: 50,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000',
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   showPasswordButtonText: {
-    color: 'blue',
+    color: '#000',
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
@@ -167,18 +167,20 @@ const styles = StyleSheet.create({
   },
   
   forgotPasswordButtonText: {
-    color: 'blue',
+    color: 'black',
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
+    
   },
 
   createAccountButton: {
     marginTop: 10,
+    
   },
 
   createAccountButtonText: {
-    color: 'blue',
+    color: 'black',
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
