@@ -21,10 +21,9 @@ const TelaPersonalizada = () => {
         style={styles.logoBackground} imageStyle={{opacity: 0.2}}
         resizeMode="cover"
       >
-      <Text>Bem Vindo,  {user.email}</Text>
-      <Text>{user.uid}</Text>
-
-
+        
+      <Text style={styles.user}>Bem Vindo,  {user.email}</Text>
+      
       <Text style={styles.textContainer}>O Bem Estar é a ferramenta que você precisa para uma pré-avaliação simples e objetiva da sua ansiedade. Com perguntas cuidadosamente elaboradas, nossa abordagem direta permite que você avalie seu estado emocional de forma rápida e eficaz. Lembre-se de que esta avaliação é apenas um ponto de partida e não substitui um diagnóstico feito por um profissional de saúde mental qualificado.</Text>
       </ImageBackground>
       </View>
@@ -63,6 +62,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 415, // Largura da logomarca
     height: 700, // Altura da logomarca
+    padding: 40,
     
   },
   
@@ -92,6 +92,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+},
+
+user:{
+    fontStyle:'italic',
+    top: 0,
+    padding: 50,
+    justifyContent: 'center',
+    flexDirection:'column',
+    alignItems:'center',
+    fontSize: 15,
 },
   
 });
