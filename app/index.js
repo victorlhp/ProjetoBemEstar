@@ -16,14 +16,7 @@ const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false); 
   const router = useRouter();
 // Estado para controlar a visibilidade da senha
-
-
-
-
-  const handleLogin = () => {
-    // Lógica de login aqui
-  };
-
+  
   const handleCreateAccount = () => {
     // Aqui você pode adicionar a lógica para criar uma conta
   };
