@@ -48,21 +48,31 @@ const LoginScreen = () => {
       />
       <View style={styles.passwordInputContainer}>
         <TextInput
-          style={styles.passwordInput}
           placeholder="Senha"
           value={password}
           onChangeText={setPassword}
           secureTextEntry={!showPassword} // Ocultar a senha se showPassword for false
         />
+
         {/* Botão para alternar a visibilidade da senha */}
         <TouchableOpacity style={styles.showPasswordButton} onPress={toggleShowPassword}>
           <Text style={styles.showPasswordButtonText}>{showPassword ? 'Ocultar' : 'Mostrar'}</Text>
         </TouchableOpacity>
       </View>
 
-      <Button title='Login' style={styles.button} onPress={() =>{
-        fazerLogin(email, password, router); 
-        }}/>
+        <Pressable style={({ pressed }) => [
+        {
+          backgroundColor: pressed ? '#ddd' : '#2196F3'
+        },
+        styles.button
+      ]}
+      onPress={() => {
+        fazerLogin(email, password, router);
+      }}
+    >
+      <Text style={styles.text}>Login</Text>
+    </Pressable>
+ 
 
       
       <Pressable style={styles.createAccountButton} onPress={handleCreateAccount}>
@@ -118,6 +128,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#CCCCFF',
   },
   
+
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+    width: '100%',
+    height: 62,
+    backgroundColor: '#6666ff',
+
+  },
+
   input: {
     width: '100%',
     height: 50,
@@ -126,12 +149,23 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    backgroundColor: '#ebebff',
+    
     
   },
   passwordInputContainer: {
     width: '100%',
     flexDirection: 'row',
+    height: 50,
     alignItems: 'center',
+    backgroundColor: '#ebebff',
+    justifyContent: 'space-between',
+    borderColor: '#000',
+    borderRadius: 5,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    marginBottom: 35,
+  
   },
 
   passwordInput: {
@@ -142,10 +176,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    
   },
   showPasswordButton: {
     padding: 10,
   },
+
   showPasswordButtonText: {
     color: '#000',
     fontSize: 16,
@@ -153,10 +189,11 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
 
-  buttonText: {
-    color: 'white',
+  text: {
+    color: '#fff',
     fontSize: 16,
-    textAlign: 'center',
+    fontWeight: 'condensedBold',
+    fontStyle:'italic'
   },
   
   forgotPasswordButtonText: {
@@ -168,8 +205,8 @@ const styles = StyleSheet.create({
   },
 
   createAccountButton: {
-    marginTop: 10,
-    
+    marginTop: 20,
+  
   },
 
   createAccountButtonText: {
@@ -177,6 +214,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
+    marginBottom: 10,
   },
 });
 
