@@ -1,7 +1,7 @@
 // PRINCIPAL
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button, Pressable } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet, Button, Pressable } from 'react-native';
 import { Image } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { app } from './firebaseConfig'
@@ -32,7 +32,7 @@ const LoginScreen = () => {
   
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.logoContainer}>
   <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
 </View>
@@ -87,7 +87,7 @@ const LoginScreen = () => {
 
       
       
-    </View>
+    </ScrollView>
   );
 };
 
@@ -122,12 +122,16 @@ const fazerLogin = (email, password, router) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     paddingHorizontal: 20,
     backgroundColor: '#CCCCFF',
   },
-  
+
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
 
   button: {
     paddingVertical: 10,
@@ -167,6 +171,7 @@ const styles = StyleSheet.create({
     marginBottom: 35,
   
   },
+
 
   passwordInput: {
     flex: 1,
