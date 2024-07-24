@@ -71,13 +71,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection:'column',
     alignItems:'center',
-    fontSize: 25,
+    fontSize: 20,
   },
   
   text: {
     flex: 9,
     color: '#333', // Cor do texto
-    marginHorizontal: 15,
+    marginHorizontal: 5,
   },
   
    button: {
@@ -96,12 +96,12 @@ const styles = StyleSheet.create({
 
 user:{
     fontStyle:'italic',
-    top: 0,
     padding: 50,
     justifyContent: 'center',
     flexDirection:'column',
     alignItems:'center',
-    fontSize: 15,
+    fontSize: 17,
+    
 },
   
 });
