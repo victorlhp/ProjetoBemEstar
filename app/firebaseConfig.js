@@ -19,7 +19,7 @@
 // firebaseConfig.js (separado para evitar múltiplas inicializações)
 
 // Mova a configuração do Firebase para um arquivo separado se ainda não estiver.
-import { initializeApp } from 'firebase/app';
+import { initializeApp, signInWithEmailAndPassword  } from 'firebase/app';
 import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
