@@ -1,7 +1,7 @@
-// LoginScreen.js
+// PRINCIPAL
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Image } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { auth } from './firebaseConfig'; // Importe a instância do auth inicializada
@@ -58,7 +58,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.logoContainer}>
         <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
       </View>
@@ -79,13 +79,24 @@ const LoginScreen = () => {
           onChangeText={setPassword}
           secureTextEntry={!showPassword} // Ocultar a senha se showPassword for false
         />
+
         {/* Botão para alternar a visibilidade da senha */}
         <TouchableOpacity style={styles.showPasswordButton} onPress={toggleShowPassword}>
           <Text style={styles.showPasswordButtonText}>{showPassword ? 'Ocultar' : 'Mostrar'}</Text>
         </TouchableOpacity>
       </View>
 
-      <Button title="Login" style={styles.button} onPress={handleLogin} />
+      <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed ? '#ddd' : '#2196F3'
+          },
+          styles.button
+        ]}
+        onPress={handleLogin} // Use handleLogin diretamente
+      >
+        <Text style={styles.text}>Login</Text>
+      </Pressable>
 
       {/* Botão de Login com Google */}
       <TouchableOpacity
@@ -96,92 +107,119 @@ const LoginScreen = () => {
         <Text style={styles.buttonText}>Login com Google</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
+      <Pressable style={styles.createAccountButton} onPress={handleCreateAccount}>
         <Link href="criacaoConta" asChild>
           <Text style={styles.createAccountButtonText}>Criar conta</Text>
         </Link>
-      </TouchableOpacity>
+      </Pressable>
 
       <TouchableOpacity style={styles.forgotPasswordButton} onPress={handleForgotPassword}>
         <Text style={styles.forgotPasswordButtonText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingHorizontal: 20,
     backgroundColor: '#CCCCFF',
   },
+
   logoContainer: {
     alignItems: 'center',
     marginBottom: 20,
   },
-  logo: {
-    width: 100,
-    height: 100,
+
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+    width: '100%',
+    height: 62,
+    backgroundColor: '#6666ff',
   },
+
+  googleButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: 62,
+    backgroundColor: '#6666ff',
+    margin: 10,
+},
+
   input: {
     width: '100%',
-    height: 40,
+    height: 50,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000',
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    backgroundColor: '#ebebff',
   },
+
   passwordInputContainer: {
     width: '100%',
     flexDirection: 'row',
+    height: 50,
     alignItems: 'center',
-  },
-  passwordInput: {
-    flex: 1,
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#ccc',
+    backgroundColor: '#ebebff',
+    justifyContent: 'space-between',
+    borderColor: '#000',
     borderRadius: 5,
+    borderWidth: 1,
     paddingHorizontal: 10,
-    marginBottom: 10,
+    marginBottom: 35,
   },
+
   showPasswordButton: {
     padding: 10,
   },
+
   showPasswordButtonText: {
-    color: 'blue',
+    color: '#000',
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
-  googleButton: {
-    backgroundColor: '#4285F4',
-    padding: 10,
-    borderRadius: 5,
-    marginVertical: 10,
+
+  text: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
   },
+  
   buttonText: {
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
   },
+
   forgotPasswordButtonText: {
-    color: 'blue',
+    color: 'black',
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
   },
+
   createAccountButton: {
-    marginTop: 10,
+    marginTop: 20,
   },
+
   createAccountButtonText: {
-    color: 'blue',
+    color: 'black',
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
+    marginBottom: 10,
   },
 });
 
