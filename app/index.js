@@ -46,11 +46,9 @@ const LoginScreen = () => {
   };
 
   const handleCreateAccount = () => {
-    // Aqui você pode adicionar a lógica para criar uma conta
   };
 
   const handleForgotPassword = () => {
-    // Aqui você pode adicionar a lógica para recuperar a senha
   };
 
   const toggleShowPassword = () => {
@@ -114,7 +112,9 @@ const LoginScreen = () => {
       </Pressable>
 
       <TouchableOpacity style={styles.forgotPasswordButton} onPress={handleForgotPassword}>
+      <Link href="recuperarConta" asChild>
         <Text style={styles.forgotPasswordButtonText}>Esqueceu a senha?</Text>
+        </Link>
       </TouchableOpacity>
     </ScrollView>
   );
