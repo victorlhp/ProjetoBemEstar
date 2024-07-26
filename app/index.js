@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     height: 62,
     backgroundColor: '#6666ff',
     margin: 10,
+    
 },
 
   input: {
@@ -163,6 +164,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
     backgroundColor: '#ebebff',
+    
   },
 
   passwordInputContainer: {
@@ -201,6 +203,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
+    fontStyle: 'italic',
+    fontWeight: 'bold',
   },
 
   forgotPasswordButtonText: {
