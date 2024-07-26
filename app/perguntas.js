@@ -3,8 +3,8 @@ import { View, Text, Pressable, ImageBackground, StyleSheet } from 'react-native
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const perguntas = [
+  // ... (suas perguntas aqui, conforme fornecido anteriormente)
   {
     enunciado: 'Você tem sentido um medo ou preocupação excessiva na maioria dos dias nas últimas semanas?',
     respostas: [
@@ -141,21 +141,22 @@ const Pergunta = ({ indice, handleResposta }) => {
       source={require('./../assets/logoBemEstar.png')}
       style={styles.fullScreenBackground}
       resizeMode="cover"
-      imageStyle={{ opacity: 0.1, flex: 1, }}
+      imageStyle={{ opacity: 0.1, flex: 1 }}
     >
       <View style={styles.contentContainer}>
-     
         <Text style={styles.pergunta}>{perguntaAtual.enunciado}</Text>
         <View style={styles.botoesContainer}>
           {perguntaAtual.respostas.map((resposta, idx) => (
             <View key={idx}>
-              <Pressable style={styles[`botao${idx + 1}`]} onPress={() => handleResposta(resposta, indice)}>
+              <Pressable
+                style={styles[`botao${idx + 1}`]}
+                onPress={() => handleResposta(resposta, indice)}
+              >
                 <Text style={styles.botaoTexto}>{resposta.texto}</Text>
               </Pressable>
             </View>
           ))}
         </View>
-        
       </View>
     </ImageBackground>
   );
@@ -164,18 +165,27 @@ const Pergunta = ({ indice, handleResposta }) => {
 const App = () => {
   const router = useRouter();
   const [indice, setIndice] = useState(0);
-  const [respostas, setRespostas] = useState([]);
+  const [respostasAnsiedade, setRespostasAnsiedade] = useState([]);
+  const [respostasDepressao, setRespostasDepressao] = useState([]);
 
   const handleResposta = async (resposta, indice) => {
     try {
-      const novasRespostas = [...respostas, { pergunta: indice + 1, resposta: resposta.texto, valor: resposta.valor }];
-      setRespostas(novasRespostas);
-      await AsyncStorage.setItem('respostas', JSON.stringify(novasRespostas));
-      
+      const respostaAtual = { pergunta: indice + 1, resposta: resposta.texto, valor: resposta.valor };
+      if (indice % 2 === 0) {
+        // Pergunta sobre ansiedade
+        const novasRespostasAnsiedade = [...respostasAnsiedade, respostaAtual];
+        setRespostasAnsiedade(novasRespostasAnsiedade);
+        await AsyncStorage.setItem('respostasAnsiedade', JSON.stringify(novasRespostasAnsiedade));
+      } else {
+        // Pergunta sobre depressão
+        const novasRespostasDepressao = [...respostasDepressao, respostaAtual];
+        setRespostasDepressao(novasRespostasDepressao);
+        await AsyncStorage.setItem('respostasDepressao', JSON.stringify(novasRespostasDepressao));
+      }
+
       if (indice < perguntas.length - 1) {
         setIndice(indice + 1);
       } else {
-        
         router.replace('/resultados');
       }
     } catch (error) {
