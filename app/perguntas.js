@@ -3,6 +3,7 @@ import { View, Text, Pressable, ImageBackground, StyleSheet } from 'react-native
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Array de perguntas e respostas
 const perguntas = [
   {
     enunciado: 'Você tem sentido um medo ou preocupação excessiva na maioria dos dias nas últimas semanas?',
@@ -132,6 +133,7 @@ const perguntas = [
   },
 ];
 
+// Componente para exibir cada pergunta
 const Pergunta = ({ indice, handleResposta }) => {
   const perguntaAtual = perguntas[indice];
 
@@ -161,11 +163,13 @@ const Pergunta = ({ indice, handleResposta }) => {
   );
 };
 
+// Componente principal do aplicativo
 const App = () => {
   const router = useRouter();
-  const [indice, setIndice] = useState(0);
-  const [respostas, setRespostas] = useState([]);
+  const [indice, setIndice] = useState(0); // Estado para controlar o índice da pergunta atual
+  const [respostas, setRespostas] = useState([]);  // Estado para armazenar as respostas do usuário
 
+ // Função para manipular a resposta do usuário
   const handleResposta = async (resposta, indice) => {
     try {
       const novasRespostas = [
@@ -173,8 +177,11 @@ const App = () => {
         { pergunta: indice + 1, resposta: resposta.texto, valor: resposta.valor },
       ];
       setRespostas(novasRespostas);
+
+  // Salvar as respostas no armazenamento local
       await AsyncStorage.setItem('respostas', JSON.stringify(novasRespostas));
 
+  // Avançar para a próxima pergunta ou ir para a tela de resultados
       if (indice < perguntas.length - 1) {
         setIndice(indice + 1);
       } else {
@@ -188,6 +195,7 @@ const App = () => {
   return <Pergunta indice={indice} handleResposta={handleResposta} />;
 };
 
+// Estilos do componente
 const styles = StyleSheet.create({
   fullScreenBackground: {
     backgroundColor: '#CCCCFF',
