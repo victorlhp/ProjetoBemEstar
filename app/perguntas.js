@@ -4,7 +4,6 @@ import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const perguntas = [
-  // ... (suas perguntas aqui, conforme fornecido anteriormente)
   {
     enunciado: 'Você tem sentido um medo ou preocupação excessiva na maioria dos dias nas últimas semanas?',
     respostas: [
@@ -165,23 +164,16 @@ const Pergunta = ({ indice, handleResposta }) => {
 const App = () => {
   const router = useRouter();
   const [indice, setIndice] = useState(0);
-  const [respostasAnsiedade, setRespostasAnsiedade] = useState([]);
-  const [respostasDepressao, setRespostasDepressao] = useState([]);
+  const [respostas, setRespostas] = useState([]);
 
   const handleResposta = async (resposta, indice) => {
     try {
-      const respostaAtual = { pergunta: indice + 1, resposta: resposta.texto, valor: resposta.valor };
-      if (indice % 2 === 0) {
-        // Pergunta sobre ansiedade
-        const novasRespostasAnsiedade = [...respostasAnsiedade, respostaAtual];
-        setRespostasAnsiedade(novasRespostasAnsiedade);
-        await AsyncStorage.setItem('respostasAnsiedade', JSON.stringify(novasRespostasAnsiedade));
-      } else {
-        // Pergunta sobre depressão
-        const novasRespostasDepressao = [...respostasDepressao, respostaAtual];
-        setRespostasDepressao(novasRespostasDepressao);
-        await AsyncStorage.setItem('respostasDepressao', JSON.stringify(novasRespostasDepressao));
-      }
+      const novasRespostas = [
+        ...respostas,
+        { pergunta: indice + 1, resposta: resposta.texto, valor: resposta.valor },
+      ];
+      setRespostas(novasRespostas);
+      await AsyncStorage.setItem('respostas', JSON.stringify(novasRespostas));
 
       if (indice < perguntas.length - 1) {
         setIndice(indice + 1);
@@ -193,9 +185,7 @@ const App = () => {
     }
   };
 
-  return (
-    <Pergunta indice={indice} handleResposta={handleResposta} />
-  );
+  return <Pergunta indice={indice} handleResposta={handleResposta} />;
 };
 
 const styles = StyleSheet.create({
@@ -243,15 +233,31 @@ const styles = StyleSheet.create({
   botao2: {
     backgroundColor: '#CCF6FF',
     paddingVertical: 25,
-    paddingHorizontal: 30,
+    paddingHorizontal: 105,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+  botao2Pressed: {
+    backgroundColor: '#88a7b5',
+    paddingVertical: 25,
+    paddingHorizontal: 105,
     marginHorizontal: 10,
     marginVertical: 15,
     borderRadius: 10,
   },
   botao3: {
-    backgroundColor: '#FFFACC',
+    backgroundColor: '#FFFFCC',
     paddingVertical: 25,
-    paddingHorizontal: 30,
+    paddingHorizontal: 75,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+  botao3Pressed: {
+    backgroundColor: '#99997a',
+    paddingVertical: 25,
+    paddingHorizontal: 75,
     marginHorizontal: 10,
     marginVertical: 15,
     borderRadius: 10,
@@ -259,16 +265,26 @@ const styles = StyleSheet.create({
   botao4: {
     backgroundColor: '#FFCCCC',
     paddingVertical: 25,
-    paddingHorizontal: 30,
+    paddingHorizontal: 130,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
+  },
+  botao4Pressed: {
+    backgroundColor: '#a67a7a',
+    paddingVertical: 25,
+    paddingHorizontal: 130,
     marginHorizontal: 10,
     marginVertical: 15,
     borderRadius: 10,
   },
   botaoTexto: {
     fontSize: 18,
-    color: 'black',
     textAlign: 'center',
+    fontStyle: 'italic',
+    color: '#000000',
   },
 });
 
 export default App;
+
