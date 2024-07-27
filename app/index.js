@@ -16,7 +16,7 @@ const LoginScreen = () => {
 
   // Configurar o provedor de autenticação do Google
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: "1:123743475693:web:36043abf2701a929eff9e4", // Substitua pelo seu Client ID do Google
+    clientId: "123743475693-469jbmsbpq8nn59ob35nl1cqfdj1mqhs.apps.googleusercontent.com", // Substitua pelo seu Client ID do Google
   });
 
   useEffect(() => {
