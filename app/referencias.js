@@ -12,7 +12,7 @@ const TelaPersonalizada = () => {
       <View style={styles.text}>
       <ImageBackground
         source={require('./../assets/logoBemEstar.png')}
-        style={styles.logoBackground} imageStyle={{opacity: 0.2}}
+        style={styles.logoBackground} imageStyle={{opacity: 0.1}}
         resizeMode="cover"
       >
       <Text style={styles.textContainer}>Escala HAD - Avaliação do nível de ansiedade e depressão (Universidade Estadual Paulista "Júlio de Mesquita Filho")</Text>
