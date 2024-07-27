@@ -1,69 +1,138 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
-const TelaResultados = () => {
-  const [resultado, setResultado] = useState(0);
+const screenWidth = Dimensions.get('window').width;
+
+const Resultados = () => {
+  const [pontuacaoAnsiedade, setPontuacaoAnsiedade] = useState(0);
+  const [pontuacaoDepressao, setPontuacaoDepressao] = useState(0);
 
   useEffect(() => {
-    const calcularResultado = async () => {
+    const calcularPontuacao = async () => {
       try {
-        const respostas = await AsyncStorage.getItem('respostas');
-        const respostasParsed = JSON.parse(respostas) || [];
-        const total = respostasParsed.reduce((acc, resposta) => acc + resposta.valor, 0);
-        setResultado(total);
+        const respostasJson = await AsyncStorage.getItem('respostas');
+        const respostas = JSON.parse(respostasJson) || [];
+
+        const pontuacaoAns = respostas
+          .filter((_, idx) => idx % 2 === 0)
+          .reduce((acc, resposta) => acc + resposta.valor, 0);
+
+        const pontuacaoDep = respostas
+          .filter((_, idx) => idx % 2 !== 0)
+          .reduce((acc, resposta) => acc + resposta.valor, 0);
+
+        setPontuacaoAnsiedade(pontuacaoAns);
+        setPontuacaoDepressao(pontuacaoDep);
       } catch (error) {
-        console.error('Erro ao calcular resultado:', error);
+        console.error('Erro ao calcular pontuação:', error);
       }
     };
 
-    calcularResultado();
+    calcularPontuacao();
   }, []);
 
-  //implementação da resposta com base no resultado da escala HAD (verificar com o Robério)
-
-  if (resultado <= 7) {
-    console.log('improvável');
-  } else if (resultado > 7 && resultado <= 11) {
-    console.log('possível');
-  } else if (resultado > 11 && resultado <= 21) {
-    console.log('provável');
-  } else{
-    console.log('erro');
-  }
-
-  // -------------------------------------------------------------------------------------------------
+  const getGaugeColor = (score) => {
+    if (score <= 7) return 'green';
+    if (score <= 11) return 'yellow';
+    return 'red';
+  };
 
   return (
     <View style={styles.container}>
-        <View style={styles.logoContainer}>
-  <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
-</View>
-      <Text style={styles.resultadoTexto}>Seu nível de ansiedade é: {resultado}</Text>
+      <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
+      <View style={styles.chartContainer}>
+        <Text style={styles.chartTitle}>Resultado de Ansiedade</Text>
+        <AnimatedCircularProgress
+          size={180}
+          width={15}
+          fill={(pontuacaoAnsiedade / 21) * 100}
+          tintColor={getGaugeColor(pontuacaoAnsiedade)}
+          backgroundColor="#eeeeee"
+          lineCap="round"
+          rotation={-90}
+          arcSweepAngle={180}
+          style={styles.gauge}
+        >
+          {(fill) => (
+            <Text style={styles.gaugeText}>
+              {pontuacaoAnsiedade}
+            </Text>
+          )}
+        </AnimatedCircularProgress>
+        <Text style={styles.resultado}>{interpretacao(pontuacaoAnsiedade)}</Text>
+      </View>
+      <View style={styles.chartContainer}>
+        <Text style={styles.chartTitle}>Resultado de Depressão</Text>
+        <AnimatedCircularProgress
+          size={180}
+          width={15}
+          fill={(pontuacaoDepressao / 21) * 100}
+          tintColor={getGaugeColor(pontuacaoDepressao)}
+          backgroundColor="#eeeeee"
+          lineCap="round"
+          rotation={-90}
+          arcSweepAngle={180}
+          style={styles.gauge}
+        >
+          {(fill) => (
+            <Text style={styles.gaugeText}>
+              {pontuacaoDepressao}
+            </Text>
+          )}
+        </AnimatedCircularProgress>
+        <Text style={styles.resultado}>{interpretacao(pontuacaoDepressao)}</Text>
+      </View>
     </View>
   );
+};
+
+const interpretacao = (pontuacao) => {
+  if (pontuacao >= 0 && pontuacao <= 7) return 'Improvável';
+  if (pontuacao >= 8 && pontuacao <= 11) return 'Possível';
+  if (pontuacao >= 12 && pontuacao <= 21) return 'Provável';
+  return 'Resultado fora do intervalo';
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9ed9',
+    backgroundColor: '#CCCCFF',
+    padding: 0,
   },
-  resultadoTexto: {
-    flex: 1,
+  logo: {
+    width: '100%', // Mesma proporção usada na tela de criação de conta
+    height: 250,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginBottom: 30,
+  },
+  chartContainer: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  chartTitle: {
     fontSize: 25,
-    color: '#000000',
+    fontStyle: 'italic',
     textAlign: 'center',
+    marginBottom: 10,
+    color: '#000000',
+  },
+  resultado: {
+    fontSize: 18,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginTop: 10,
+    color: '#000000',
+  },
+  gauge: {
     marginBottom: 20,
   },
-
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
+  gaugeText: {
+    fontSize: 24,
+    color: '#000000',
   },
 });
 
-export default TelaResultados;
+export default Resultados;
