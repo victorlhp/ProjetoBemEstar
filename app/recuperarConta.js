@@ -28,7 +28,7 @@ const PasswordReset = () => {
         resizeMode="contain"
       />
       <View style={styles.formContainer}>
-        <Text style={styles.instructions}>Informe seu email para recuperar a senha:</Text>
+        <Text style={styles.instructions}>E-mail de Recuperação:</Text>
         <TextInput
           placeholder="Email"
           style={styles.input}
@@ -53,22 +53,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoBackground: {
-    width: '100%',
+    width: '120%',
     aspectRatio: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    right: 45,
   },
   formContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    borderRadius: 10,
-    width: '80%',
+    width: '100%',
   },
   instructions: {
     fontSize: 16,
     marginBottom: 10,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   input: {
     width: '100%',
@@ -88,8 +88,11 @@ const styles = StyleSheet.create({
     margin: 10,
     width: '100%',
     height: 62,
+    right: 10,
     backgroundColor: '#6666ff',
+    borderRadius: 5,
   },
+  
   buttonText: {
     color: 'white',
     fontSize: 16,

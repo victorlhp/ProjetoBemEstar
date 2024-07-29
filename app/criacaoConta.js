@@ -140,8 +140,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   mostrarSenhaButtonText: {
-    color: 'blue',
+    color: 'black',
   },
+  
   button: {
     paddingVertical: 10,
     paddingHorizontal: 10,
