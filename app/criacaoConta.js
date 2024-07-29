@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, ImageBackground, Text, TextInput, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
+import { Alert, View, ImageBackground, Text, TextInput, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
 import { Link, useRouter } from 'expo-router'; // Adicionado useRouter para navegação
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Importe o método de criação de usuário
 import { auth } from './firebaseConfig'; // Importe a instância do auth inicializada
+
 
 const CriarConta = () => {
   const [senhaVisivel, setSenhaVisivel] = useState(false); // Estado para controlar a visibilidade da senha
@@ -10,7 +11,7 @@ const CriarConta = () => {
   const [senha, setSenha] = useState('');
   const [repetirSenha, setRepetirSenha] = useState('');
   const [repetirSenhaVisivel, setRepetirSenhaVisivel] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const router = useRouter(); // Inicializar o hook useRouter
 
   // Função para alternar a visibilidade da senha
@@ -22,24 +23,36 @@ const CriarConta = () => {
     setRepetirSenhaVisivel(!repetirSenhaVisivel);
   };
 
-  // Função para criar a conta
-  const handleCriarConta = () => {
-    if (senha !== repetirSenha) {
-      alert('As senhas não coincidem!');
-      return;
+  const validarSenha = (senha, repetirSenha) => {
+    var validada = false;
+    if(senha !== repetirSenha){
+        Alert.alert('Senhas divergentes', 'As duas senhas estão com conteúdos diferentes. Para realizar o cadastro, é preciso que elas sejam iguais.');
+    } else if(senha.length < 6) {
+        Alert.alert('Senha fraca', 'A senha deve ter no mínimo 6 caracteres.');
+    } else {
+        validada = true;
     }
-
-    createUserWithEmailAndPassword(auth, email, senha)
-      .then((userCredential) => {
-        console.log('Conta criada com sucesso!', userCredential.user);
-        // Redirecionar para a tela de login ou para uma tela de boas-vindas
-        router.replace('/'); // Ou a tela que você deseja redirecionar
-      })
-      .catch((error) => {
-        console.error('Erro ao criar conta:', error);
-        alert(`Erro ao criar conta: ${error.message}`);
-      });
+    return validada;
   };
+
+  // Função para criar a conta
+  const handleCriarConta = async () => {
+    try {
+    
+    const validada = validarSenha(senha, repetirSenha);
+    if(validada) {
+      setLoading(true);
+      await createUserWithEmailAndPassword(auth, email, senha);
+      setLoading(false);
+      router.replace('/');
+  }
+} catch (error) {
+  console.error(error.code);
+  console.error(error.message);
+  setLoading(false);
+}
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -142,7 +155,7 @@ const styles = StyleSheet.create({
   mostrarSenhaButtonText: {
     color: 'black',
   },
-  
+
   button: {
     paddingVertical: 10,
     paddingHorizontal: 10,
