@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Alert, View, ImageBackground, Text, TextInput, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
-import { Link, useRouter } from 'expo-router'; // Adicionado useRouter para navegação
+import { useRouter } from 'expo-router'; // Adicionado useRouter para navegação
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Importe o método de criação de usuário
 import { auth } from './firebaseConfig'; // Importe a instância do auth inicializada
+import { Button } from "react-native-paper";
 
 
 const CriarConta = () => {
@@ -96,9 +97,24 @@ const CriarConta = () => {
           </TouchableOpacity>
         </View>
         {/* Botão "Criar Conta" */}
-        <Pressable style={styles.button} onPress={handleCriarConta}>
+        {/* <Pressable style={styles.button} onPress={handleCriarConta} loading={loading}>
           <Text style={styles.buttonText}>Criar Conta</Text>
-        </Pressable>
+        </Pressable> */}
+
+<View style={styles.buttonContainer}>
+      <Button
+        mode="contained" // Define o estilo do botão (contained, outlined, text)
+        onPress={handleCriarConta}
+        loading={loading} // Mostra um indicador de carregamento
+        disabled={loading} // Desabilita o botão enquanto está carregando
+        contentStyle={styles.button} // Estilo para o conteúdo do botão
+        labelStyle={styles.buttonText} // Estilo para o texto do botão
+      >
+        Criar Conta
+      </Button>
+    </View>
+
+        
       </View>
     </View>
   );
@@ -110,7 +126,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#CCCCFF', // Cor de fundo
     justifyContent: 'center',
     alignItems: 'center',
+
   },
+
+  buttonContainer: {
+    marginVertical: 10,
+    marginHorizontal: 10,
+  },
+  
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    backgroundColor: '#6666ff',
+    
+  },
+
+  buttonText: {
+    color: '#fff', // Cor do texto
+    fontSize: 16, // Tamanho da fonte
+    fontWeight: 'bold', // Peso da fonte
+    fontStyle: 'italic',
+  },
+
   logoBackground: {
     width: '100%',
     aspectRatio: 2, // Ajuste conforme necessário para a proporção da sua logomarca
@@ -119,11 +156,11 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.5)', // Cor de fundo com transparência para efeito de marca d'água
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 10,
-    borderRadius: 10,
-    width: '80%',
+    width: '100%',
   },
+
   input: {
     width: '100%',
     height: 50,
@@ -156,23 +193,6 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10,
-    width: '100%',
-    height: 62,
-    backgroundColor: '#6666ff',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-    fontStyle: 'italic',
-    fontWeight: 'bold',
-  },
 });
 
 export default CriarConta;
