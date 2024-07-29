@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Image } from 'react-native';
+import { Button } from 'react-native-paper'
 import { Link, useRouter } from 'expo-router';
 import { auth } from './firebaseConfig'; // Importe a instância do auth inicializada
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
@@ -12,6 +13,7 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   // Configurar o provedor de autenticação do Google
@@ -37,11 +39,14 @@ const LoginScreen = () => {
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
+        setLoading(true);
         console.log('Login realizado com sucesso!', userCredential.user);
         router.replace('/introducao');
+        setLoading(false);
       })
       .catch(error => {
         console.error('Erro ao fazer login', error);
+        setLoading(false);
       });
   };
 
@@ -84,7 +89,7 @@ const LoginScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <Pressable
+      {/* <Pressable
         style={({ pressed }) => [
           {
             backgroundColor: pressed ? '#ddd' : '#2196F3'
@@ -94,7 +99,20 @@ const LoginScreen = () => {
         onPress={handleLogin} // Use handleLogin diretamente
       >
         <Text style={styles.text}>Login</Text>
-      </Pressable>
+      </Pressable> */}
+
+    <View style={styles.buttonContainer}>
+      <Button
+        mode="contained" // Define o estilo do botão
+        onPress={handleLogin}
+        loading={loading} 
+        disabled={loading}
+        contentStyle={styles.buttonContent} // Estilo para o conteúdo do botão
+        labelStyle={styles.text} // Estilo para o texto do botão
+      >
+        Login
+      </Button>
+    </View>
 
       {/* Botão de Login com Google */}
       <TouchableOpacity
@@ -131,16 +149,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
+  
+  buttonContainer: {
+    marginHorizontal: 0,
+  },
 
-  button: {
+  buttonContent: {
     paddingVertical: 10,
-    paddingHorizontal: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10,
-    width: '100%',
-    height: 62,
+    paddingHorizontal: 20,
     backgroundColor: '#6666ff',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 
   googleButton: {
@@ -182,7 +204,7 @@ const styles = StyleSheet.create({
   },
 
   showPasswordButton: {
-    padding: 10,
+    padding: 0,
   },
 
   showPasswordButtonText: {
