@@ -51,7 +51,7 @@ const Resultados = () => {
     <View style={styles.container}>
       <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
       <View style={styles.chartContainer}>
-        <Text style={styles.chartTitle}>Resultado de Ansiedade</Text>
+        <Text style={styles.chartTitle}>Transtorno de Ansiedade</Text>
         <AnimatedCircularProgress
           size={180}
           width={15}
@@ -72,7 +72,7 @@ const Resultados = () => {
         <Text style={styles.resultado}>{interpretacao(pontuacaoAnsiedade)}</Text>
       </View>
       <View style={styles.chartContainer}>
-        <Text style={styles.chartTitle}>Resultado de Depressão</Text>
+        <Text style={styles.chartTitle}>Depressão</Text>
         <AnimatedCircularProgress
           size={180}
           width={15}
