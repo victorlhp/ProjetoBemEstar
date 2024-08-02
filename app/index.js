@@ -8,6 +8,22 @@ import { Link, useRouter } from 'expo-router';
 import { auth } from './firebaseConfig'; // Importe a instância do auth inicializada
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import * as Google from 'expo-auth-session/providers/google';
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
+
+const App = () => {
+  // Verifica se o Firebase já está inicializado
+  if (!firebase.apps.length) {
+    // Inicializa o Firebase
+    firebase.initializeApp(App);
+  }
+
+  return (
+    <View>
+      <Text>Firebase Configurado!</Text>
+    </View>
+  );
+};
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
