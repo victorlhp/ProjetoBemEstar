@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { auth } from './firebaseConfig'; // Certifique-se de que este caminho está correto para o arquivo onde você configura o Firebase
+import { signOut } from 'firebase/auth';
+import { useRouter } from 'expo-router';
 
 // Largura da tela para uso em estilos
 const screenWidth = Dimensions.get('window').width;
 
 const Resultados = () => {
-// Estados para armazenar a pontuação de ansiedade e depressão
+  // Estados para armazenar a pontuação de ansiedade e depressão
   const [pontuacaoAnsiedade, setPontuacaoAnsiedade] = useState(0);
   const [pontuacaoDepressao, setPontuacaoDepressao] = useState(0);
+  const router = useRouter(); // Hook do expo-router para navegação
 
   useEffect(() => {
-
-// Função para calcular a pontuação de ansiedade e depressão
+    // Função para calcular a pontuação de ansiedade e depressão
     const calcularPontuacao = async () => {
       try {
         // Recupera as respostas do armazenamento local
         const respostasJson = await AsyncStorage.getItem('respostas');
         const respostas = JSON.parse(respostasJson) || [];
 
-// Calcula a pontuação de ansiedade somando valores de índices pares
+        // Calcula a pontuação de ansiedade somando valores de índices pares
         const pontuacaoAns = respostas
           .filter((_, idx) => idx % 2 === 0)
           .reduce((acc, resposta) => acc + resposta.valor, 0);
 
-// Calcula a pontuação de depressão somando valores de índices ímpares
+        // Calcula a pontuação de depressão somando valores de índices ímpares
         const pontuacaoDep = respostas
           .filter((_, idx) => idx % 2 !== 0)
           .reduce((acc, resposta) => acc + resposta.valor, 0);
@@ -40,11 +43,22 @@ const Resultados = () => {
     calcularPontuacao();
   }, []);
 
-// Função para determinar a cor do gráfico baseado na pontuação
+  // Função para determinar a cor do gráfico baseado na pontuação
   const getGaugeColor = (score) => {
     if (score <= 7) return 'green'; // Cor verde para pontuação baixa
     if (score <= 11) return 'yellow'; // Cor amarela para pontuação média
     return 'red'; // Cor vermelha para pontuação alta
+  };
+
+  // Função de logout
+  const handleSair = async () => {
+    try {
+      await signOut(auth);
+      router.replace('/'); // Redireciona para a página inicial após o logout
+    } catch (error) {
+      console.error(error.code);
+      console.error(error.message);
+    }
   };
 
   return (
@@ -58,14 +72,13 @@ const Resultados = () => {
           fill={(pontuacaoAnsiedade / 21) * 100} // Calcula a porcentagem para o gráfico
           tintColor={getGaugeColor(pontuacaoAnsiedade)} // Define a cor do gráfico
           backgroundColor="#eeeeee"
-          // lineCap="round"
           rotation={-90} // Rotação do gráfico
           arcSweepAngle={180} // Ângulo do arco do gráfico
           style={styles.gauge}
         >
           {(fill) => (
             <Text style={styles.gaugeText}>
-              {pontuacaoAnsiedade} 
+              {pontuacaoAnsiedade}
             </Text>
           )}
         </AnimatedCircularProgress>
@@ -79,7 +92,6 @@ const Resultados = () => {
           fill={(pontuacaoDepressao / 21) * 100}
           tintColor={getGaugeColor(pontuacaoDepressao)}
           backgroundColor="#eeeeee"
-          // lineCap="round"
           rotation={-90}
           arcSweepAngle={180}
           style={styles.gauge}
@@ -92,29 +104,26 @@ const Resultados = () => {
         </AnimatedCircularProgress>
         <Text style={styles.resultado}>{interpretacaoD(pontuacaoDepressao)}</Text>
       </View>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleSair}>
+        <Text style={styles.logoutButtonText}>Sair</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-// Função para interpretar a pontuação e exibir a mensagem correspondente
-// const interpretacao = (pontuacao) => {
-//   if (pontuacao >= 0 && pontuacao <= 7) return 'Improvável'; // Ansiedade/Depressão improvável
-//   if (pontuacao >= 8 && pontuacao <= 11) return 'Possível'; // Ansiedade/Depressão possível
-//   if (pontuacao >= 12 && pontuacao <= 21) return 'Provável'; // Ansiedade/Depressão provável
-//   return 'Resultado fora do intervalo';
-// };
-
+// Funções para interpretar as pontuações de ansiedade e depressão
 const interpretacaoA = (pontuacaoAnsiedade) => {
-  if (pontuacaoAnsiedade >= 0 && pontuacaoAnsiedade <= 7) return 'Improvável: Não há probabilidade'; // Ansiedade/Depressão improvável
-  if (pontuacaoAnsiedade >= 8 && pontuacaoAnsiedade <= 11) return 'Possível: Procure um Profissional de Saúde Mental'; // Ansiedade/Depressão possível
-  if (pontuacaoAnsiedade >= 12 && pontuacaoAnsiedade <= 21) return 'Provável: Alta Probabilidade. Procure um Especialista em saúde mental'; // Ansiedade/Depressão provável
+  if (pontuacaoAnsiedade >= 0 && pontuacaoAnsiedade <= 7) return 'Improvável: Não há probabilidade';
+  if (pontuacaoAnsiedade >= 8 && pontuacaoAnsiedade <= 11) return 'Possível: Procure um Profissional de Saúde Mental';
+  if (pontuacaoAnsiedade >= 12 && pontuacaoAnsiedade <= 21) return 'Provável: Alta Probabilidade. Procure um Especialista em saúde mental';
   return 'Resultado fora do intervalo';
 };
 
 const interpretacaoD = (pontuacaoDepressao) => {
-  if (pontuacaoDepressao >= 0 && pontuacaoDepressao <= 7) return 'Improvável: Você provavelmente não apresenta sintomas significativos de depressão, mas continue cuidando do seu bem-estar emocional.'; // Ansiedade/Depressão improvável
-  if (pontuacaoDepressao >= 8 && pontuacaoDepressao <= 11) return 'Possível: Há alguns sintomas leves de depressão; considere monitorar seu estado emocional e buscar orientação se necessário.'; // Ansiedade/Depressão possível
-  if (pontuacaoDepressao >= 12 && pontuacaoDepressao <= 21) return 'Provável: Sintomas significativos de depressão estão presentes; é importante procurar avaliação e apoio profissional.'; // Ansiedade/Depressão provável
+  if (pontuacaoDepressao >= 0 && pontuacaoDepressao <= 7) return 'Improvável: Você provavelmente não apresenta sintomas significativos de depressão, mas continue cuidando do seu bem-estar emocional.';
+  if (pontuacaoDepressao >= 8 && pontuacaoDepressao <= 11) return 'Possível: Há alguns sintomas leves de depressão; considere monitorar seu estado emocional e buscar orientação se necessário.';
+  if (pontuacaoDepressao >= 12 && pontuacaoDepressao <= 21) return 'Provável: Sintomas significativos de depressão estão presentes; é importante procurar avaliação e apoio profissional.';
   return 'Resultado fora do intervalo';
 };
 
@@ -126,17 +135,15 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   logo: {
-    width: '100%', 
+    width: '100%',
     height: 150,
     resizeMode: 'contain',
     alignSelf: 'center',
   },
-
   chartContainer: {
     alignItems: 'center',
-    marginBottom: 75,
+    marginBottom: 50, // Diminuído para aproximar o texto do gráfico
   },
-
   chartTitle: {
     fontSize: 30,
     fontStyle: 'italic',
@@ -149,16 +156,29 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textAlign: 'center',
     color: '#000000',
-},
-
+    marginTop: -10, // Ajuste para aproximar o texto do gráfico
+  },
   gauge: {
     marginBottom: 10,
-},
-
+  },
   gaugeText: {
     fontSize: 24,
     color: '#000000',
-    marginBottom: 65,
+    marginBottom: 10, // Diminuído para deixar o texto mais próximo do gráfico
+  },
+  logoutButton: {
+    alignSelf: 'flex-end',
+    backgroundColor: '#6666ff', // Cor do botão
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    marginTop: 40,
+    right: 10,
+  },
+  logoutButtonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
   },
 });
 
