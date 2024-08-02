@@ -1,6 +1,7 @@
 import { initializeApp, signInWithEmailAndPassword  } from 'firebase/app';
 import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAHO7rhIrfypj-x27HetVym-08K9YmE22U",
@@ -24,7 +25,9 @@ const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
-export { auth, app };
+const db = getFirestore(app);
+
+export { auth, app, db };
 
 
 // ID de cliente OAuth 2.0 115633635008464638497
