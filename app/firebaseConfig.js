@@ -1,4 +1,6 @@
-import { initializeApp, signInWithEmailAndPassword  } from 'firebase/app';
+// firebaseConfig.js
+
+import { initializeApp } from 'firebase/app';
 import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { getFirestore } from 'firebase/firestore';
@@ -14,20 +16,19 @@ const firebaseConfig = {
   measurementId: "G-NFR3GLN5R7"
 };
 
-
-
 // Inicialize o app Firebase
 const app = initializeApp(firebaseConfig);
-
 
 // Inicialize o Firebase Auth
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
+// Inicialize o Firestore
 const db = getFirestore(app);
 
-export { auth, app, db };
+export { auth, db };
+
 
 
 // ID de cliente OAuth 2.0 115633635008464638497
