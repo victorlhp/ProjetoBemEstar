@@ -1,13 +1,18 @@
-// App.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, Pressable, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, Pressable, ImageBackground, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { auth } from './firebaseConfig';
 import { addUser, addResposta, addResultados } from './firestoreService'; // Certifique-se de que o caminho está correto
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { signOut } from 'firebase/auth';
+import { Image } from "react-native";
+
+
+// Largura da tela para uso em estilos
+const screenWidth = Dimensions.get('window').width;
 
 const perguntas = [
-  // Perguntas aqui (mantenha como está)
   { nome: 'Pergunta 1', enunciado: 'Você tem sentido um medo ou preocupação excessiva na maioria dos dias nas últimas semanas?', respostas: [{ texto: 'A maior parte do tempo', valor: 3 }, { texto: 'Boa parte do tempo', valor: 2 }, { texto: 'De vez em quando', valor: 1 }, { texto: 'Raramente', valor: 0 }] },
   { nome: 'Pergunta 2', enunciado: 'Você tem dificuldade para dormir ou manter o sono?', respostas: [{ texto: 'A maior parte do tempo', valor: 3 }, { texto: 'Boa parte do tempo', valor: 2 }, { texto: 'De vez em quando', valor: 1 }, { texto: 'Raramente', valor: 0 }] },
   { nome: 'Pergunta 3', enunciado: 'Você tem sintomas físicos como tremores, sudorese ou palpitações devido à ansiedade?', respostas: [{ texto: 'A maior parte do tempo', valor: 3 }, { texto: 'Boa parte do tempo', valor: 2 }, { texto: 'De vez em quando', valor: 1 }, { texto: 'Raramente', valor: 0 }] },
@@ -32,20 +37,23 @@ const Pergunta = ({ indice, handleResposta }) => {
       source={require('./../assets/logoBemEstar.png')}
       style={styles.fullScreenBackground}
       resizeMode="cover"
-      imageStyle={{ opacity: 0.1, flex: 1 }}
+      imageStyle={styles.imageBackground}
     >
       <View style={styles.contentContainer}>
         <Text style={styles.pergunta}>{perguntaAtual.enunciado}</Text>
         <View style={styles.botoesContainer}>
           {perguntaAtual.respostas.map((resposta, idx) => (
-            <View key={idx}>
-              <Pressable
-                style={styles[`botao${idx + 1}`]}
-                onPress={() => handleResposta(resposta, indice)}
-              >
-                <Text style={styles.botaoTexto}>{resposta.texto}</Text>
-              </Pressable>
-            </View>
+            <Pressable
+              key={idx}
+              style={({ pressed }) => [
+                styles.botao,
+                styles[`botao${idx + 1}`],
+                pressed && styles[`botao${idx + 1}Pressed`],
+              ]}
+              onPress={() => handleResposta(resposta, indice)}
+            >
+              <Text style={styles.botaoTexto}>{resposta.texto}</Text>
+            </Pressable>
           ))}
         </View>
       </View>
@@ -53,10 +61,80 @@ const Pergunta = ({ indice, handleResposta }) => {
   );
 };
 
+const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
+  const getGaugeColor = (score) => {
+    if (score <= 7) return 'green'; // Cor verde para pontuação baixa
+    if (score >=8 && score <= 11) return 'yellow'; // Cor amarela para pontuação média
+    return 'red'; // Cor vermelha para pontuação alta
+  };
+
+  const interpretacaoA = (pontuacaoAnsiedade) => {
+    if (pontuacaoAnsiedade >= 0 && pontuacaoAnsiedade <= 7) return 'Improvável: Não há probabilidade';
+    if (pontuacaoAnsiedade >= 8 && pontuacaoAnsiedade <= 11) return 'Possível: Procure um Profissional de Saúde Mental';
+    if (pontuacaoAnsiedade >= 12 && pontuacaoAnsiedade <= 21) return 'Provável: Alta Probabilidade. Procure um Especialista em saúde mental';
+    return 'Resultado fora do intervalo';
+  };
+
+  const interpretacaoD = (pontuacaoDepressao) => {
+    if (pontuacaoDepressao >= 0 && pontuacaoDepressao <= 7) return 'Improvável: Você provavelmente não apresenta sintomas significativos de depressão, mas continue cuidando do seu bem-estar emocional.';
+    if (pontuacaoDepressao >= 8 && pontuacaoDepressao <= 11) return 'Possível: Há alguns sintomas leves de depressão; considere monitorar seu estado emocional e buscar orientação se necessário.';
+    if (pontuacaoDepressao >= 12 && pontuacaoDepressao <= 21) return 'Provável: Sintomas significativos de depressão estão presentes; é importante procurar avaliação e apoio profissional.';
+    return 'Resultado fora do intervalo';
+  };
+
+  return (
+    <View style={styles.container}>
+      <Image source={require('./../assets/logoBemEstar.png')} style={styles.logo} />
+      
+      <Text style={styles.chartTitle}>Transtorno de Ansiedade</Text>
+      <AnimatedCircularProgress
+        size={180}
+        width={15}
+        rotation={-90} // Rotação do gráfico
+        arcSweepAngle={180} // Ângulo do arco do gráfico
+        fill={(pontuacaoAnsiedade / 21) * 100} // Calcula a porcentagem para o gráfico
+        tintColor={getGaugeColor(pontuacaoAnsiedade)}
+        backgroundColor="#e0e0e0"
+      >
+        {() => (
+          <Text style={styles.chartText}>
+            {pontuacaoAnsiedade}
+          </Text>
+        )}
+      </AnimatedCircularProgress>
+      <Text style={styles.interpretacao}>{interpretacaoA(pontuacaoAnsiedade)}</Text>
+
+      <Text style={styles.chartTitle}>Transtorno Depressivo</Text>
+      <AnimatedCircularProgress
+        size={180}
+        width={15}
+        rotation={-90} // Rotação do gráfico
+        arcSweepAngle={180} // Ângulo do arco do gráfico
+        fill={(pontuacaoDepressao / 21) * 100} // Calcula a porcentagem para o gráfico
+        tintColor={getGaugeColor(pontuacaoDepressao)}
+        backgroundColor="#e0e0e0"
+        
+      >
+        {() => (
+          <Text style={styles.chartText}>
+            {pontuacaoDepressao}
+          </Text>
+        )}
+      </AnimatedCircularProgress>
+      <Text style={styles.interpretacao}>{interpretacaoD(pontuacaoDepressao)}</Text>
+
+      <TouchableOpacity onPress={onLogout} style={styles.logoutButton}>
+        <Text style={styles.logoutButtonText}>Sair</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 const App = () => {
   const router = useRouter();
   const [indice, setIndice] = useState(0);
   const [respostas, setRespostas] = useState([]);
+  const [showResultados, setShowResultados] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -108,81 +186,165 @@ const App = () => {
 
         await addResultados(userId, pontuacaoAnsiedade, pontuacaoDepressao);
 
-        router.replace('/resultados');
+        setShowResultados(true);
       }
     } catch (error) {
       console.error('Erro ao salvar resposta:', error);
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.replace('/');
+    } catch (error) {
+      console.error('Erro ao realizar logout:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Pergunta indice={indice} handleResposta={handleResposta} />
+      {showResultados ? (
+        <Resultados
+          pontuacaoAnsiedade={respostas.filter((_, idx) => idx % 2 === 0).reduce((acc, resposta) => acc + resposta.valor, 0)}
+          pontuacaoDepressao={respostas.filter((_, idx) => idx % 2 !== 0).reduce((acc, resposta) => acc + resposta.valor, 0)}
+          onLogout={handleLogout}
+        />
+      ) : (
+        <Pergunta indice={indice} handleResposta={handleResposta} />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // Estilos aqui (mantenha como está)
-  container: {
-    flex: 1,
-  },
+    container: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 1,
+      backgroundColor: '#CCCCFF',
+      padding: 0,
+    },
   fullScreenBackground: {
-    flex: 1,
+    flex: 1, 
+    backgroundColor: '#ccccff', 
     justifyContent: 'center',
     alignItems: 'center',
   },
-  contentContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    padding: 20,
-    borderRadius: 10,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+  imageBackground: {
+    width: 435,
+    height: 500,
+    opacity: 0.1,
   },
   pergunta: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#004257',
+    fontSize: 25,
+    fontWeight: '300',
+    fontStyle: 'italic',
     textAlign: 'center',
     marginBottom: 20,
+    color: '#000',
+    paddingHorizontal: 25,
   },
   botoesContainer: {
-    width: '100%',
+    flexDirection: 'column',
+    marginVertical: 20,
+    top: 100,
+  },
+  botao: {
+    paddingVertical: 25,
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 10,
   },
   botao1: {
-    backgroundColor: '#004257',
-    paddingVertical: 10,
-    marginVertical: 5,
-    borderRadius: 10,
-    alignItems: 'center',
+    backgroundColor: '#CCFFCC',
+    paddingHorizontal: 100,
+  },
+  botao1Pressed: {
+    backgroundColor: '#7a997a',
   },
   botao2: {
-    backgroundColor: '#3b82a0',
-    paddingVertical: 10,
-    marginVertical: 5,
-    borderRadius: 10,
-    alignItems: 'center',
+    backgroundColor: '#CCF6FF',
+    paddingHorizontal: 105,
+  },
+  botao2Pressed: {
+    backgroundColor: '#88a7b5',
   },
   botao3: {
-    backgroundColor: '#82bdd0',
-    paddingVertical: 10,
-    marginVertical: 5,
-    borderRadius: 10,
-    alignItems: 'center',
+    backgroundColor: '#FFFFCC',
+    paddingHorizontal: 75,
+  },
+  botao3Pressed: {
+    backgroundColor: '#99997a',
   },
   botao4: {
-    backgroundColor: '#c7e4ee',
-    paddingVertical: 10,
-    marginVertical: 5,
-    borderRadius: 10,
-    alignItems: 'center',
+    backgroundColor: '#FFCCCC',
+    paddingHorizontal: 130,
+  },
+  botao4Pressed: {
+    backgroundColor: '#a67a7a',
   },
   botaoTexto: {
-    color: 'white',
+    fontSize: 18,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    color: '#000',
+  },
+  chartTitle: {
+    top: 70,
+    fontSize: 30,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    justifyContent: 'center',
+    marginBottom: 100,
+    color: '#000000',
+  },
+
+  chartText: {
+    fontSize: 22,
+    color: '#000',
+    textAlign: 'center',
+    marginBottom: 50, 
+  },
+
+  interpretacao: {
     fontSize: 16,
+    textAlign: 'center',
+},
+
+  // gauge: {
+  //   marginBottom: 10,
+  //   top:  60,
+  
+  // },
+
+  gaugeText: {
+    fontSize: 24,
+    color: '#000000',
+    marginBottom: 10, // Diminuído para deixar o texto mais próximo do gráfico
+  },
+
+  logo: {
+    width: '100%',
+    height: 150,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  },
+  
+  logoutButton: {
+    alignSelf: 'flex-end',
+    backgroundColor: '#6666ff', // Cor do botão
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    marginTop: 0,
+    right: 10,
+  },
+  logoutButtonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
     fontWeight: 'bold',
+    fontStyle: 'italic',
   },
 });
 
