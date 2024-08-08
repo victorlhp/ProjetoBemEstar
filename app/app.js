@@ -218,14 +218,18 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flex: 1,
-      backgroundColor: '#CCCCFF',
-      padding: 0,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#CCCCFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
   fullScreenBackground: {
     flex: 1, 
     backgroundColor: '#ccccff', 
@@ -292,13 +296,12 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   chartTitle: {
-    top: 10,
-    fontSize: 32,
+    fontSize: 30,
     fontStyle: 'italic',
     textAlign: 'center',
-    justifyContent: 'center',
-    marginBottom: 100,
+    marginBottom: 5, // Reduziu o espaçamento inferior
     color: '#000000',
+    top: -20,
   },
 
   chartText: {
@@ -308,13 +311,19 @@ const styles = StyleSheet.create({
     marginBottom: 50, 
   },
 
+  chartContainer: {
+    alignItems: 'center',
+    marginBottom: 10, // Reduziu o espaçamento inferior
+  },
+
   interpretacao: {
     fontSize: 16,
     textAlign: 'center',
     color: '#000000',
     fontStyle: 'italic',
-  
-},
+    marginTop: 5, // Aumentou a margem superior para aproximar do gráfico
+    top: -55, //
+  },
 
   gaugeText: {
     fontSize: 24,
@@ -324,18 +333,19 @@ const styles = StyleSheet.create({
 
   logo: {
     width: 150,
-    height: 100,
+    height: 150,
     resizeMode: 'contain',
     alignSelf: 'center',
+    top: -40,
   },
   
-  logoutButton: {
-    alignSelf: 'flex-end',
-    backgroundColor: '#6666ff', // Cor do botão
+    logoutButton: {
+    top: 60, // Distância do topo da tela
+    left: 170, // Distância da margem direita
+    backgroundColor: '#6666ff',
     paddingVertical: 10,
-    paddingHorizontal: 40,
-    marginTop: 45,
-    left: 20,
+    paddingHorizontal: 20,
+    alignItems: 'center',
   },
 
   logoutButtonText: {
