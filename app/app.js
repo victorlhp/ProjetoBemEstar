@@ -104,7 +104,7 @@ const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
       </AnimatedCircularProgress>
       <Text style={styles.interpretacao}>{interpretacaoA(pontuacaoAnsiedade)}</Text>
 
-      <Text style={styles.chartTitle}>Transtorno Depressivo</Text>
+      <Text style={styles.chartTitle}>Depressão</Text>
       <AnimatedCircularProgress
         size={180}
         width={15}
@@ -292,8 +292,8 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   chartTitle: {
-    top: 70,
-    fontSize: 30,
+    top: 10,
+    fontSize: 32,
     fontStyle: 'italic',
     textAlign: 'center',
     justifyContent: 'center',
@@ -311,13 +311,10 @@ const styles = StyleSheet.create({
   interpretacao: {
     fontSize: 16,
     textAlign: 'center',
-},
-
-  // gauge: {
-  //   marginBottom: 10,
-  //   top:  60,
+    color: '#000000',
+    fontStyle: 'italic',
   
-  // },
+},
 
   gaugeText: {
     fontSize: 24,
@@ -326,8 +323,8 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: '100%',
-    height: 150,
+    width: 150,
+    height: 100,
     resizeMode: 'contain',
     alignSelf: 'center',
   },
@@ -337,9 +334,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#6666ff', // Cor do botão
     paddingVertical: 10,
     paddingHorizontal: 40,
-    marginTop: 0,
-    right: 10,
+    marginTop: 45,
+    left: 20,
   },
+
   logoutButtonText: {
     color: '#FFFFFF',
     fontSize: 18,
