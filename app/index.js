@@ -57,7 +57,7 @@ const LoginScreen = () => {
       .then(userCredential => {
         setLoading(true);
         console.log('Login realizado com sucesso!', userCredential.user);
-        router.replace('/introducao');
+        router.replace('/inicio');
         setLoading(false);
       })
       .catch(error => {
