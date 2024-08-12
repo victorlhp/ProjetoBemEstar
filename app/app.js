@@ -220,7 +220,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#CCCCFF',
+    backgroundColor: '#eeb8b4',
     alignItems: 'center',
     justifyContent: 'center',
   },
