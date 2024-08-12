@@ -73,7 +73,7 @@ const TelaPersonalizada = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#9ed9', // Cor de fundo
+    backgroundColor: '#eeb8b4', // Cor de fundo
   },
 
   logoBackground: {
