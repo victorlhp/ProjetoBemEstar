@@ -3,21 +3,33 @@ import { View, ImageBackground, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { auth, db } from './firebaseConfig';
+import { updateProfile } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore"; 
 
 const TelaPersonalizada = () => {
-  const [nomeUsuario, setNomeUsuario] = useState('');
+  // const [nomeUsuario, setNomeUsuario] = useState('');
+  const user = auth.currentUser;
+  const [nomeExibicao, setNomeExibicao] = useState(user.displayName);
+  const [loading, setLoading] = useState(false);
+  
   
 
   useEffect(() => {
     const recuperarNome = async () => {
       try {
-        const nome = await AsyncStorage.getItem('nomeUsuario');
-        if (nome !== null) {
-          setNomeUsuario(nome);
-        }
-      } catch (error) {
-        console.error('Erro ao recuperar nome:', error);
-      }
+        setLoading(true);
+        await updateProfile(user, { displayName: nomeExibicao });
+        await setDoc(doc(db, "usuarios", user.uid), {
+            nomeExibicao: nomeExibicao
+        });
+        setLoading(false);
+        
+    } catch (error) {
+        console.error(error.code);
+        console.error(error.message);
+        setLoading(false);
+    }
     };
 
     recuperarNome();
@@ -33,7 +45,7 @@ const TelaPersonalizada = () => {
           imageStyle={{ opacity: 0.2 }}
           resizeMode="cover"
         >
-          <Text style={styles.user}>Bem Vindo, {nomeUsuario}</Text>
+          <Text style={styles.user}>Bem Vindo, {nomeExibicao}</Text>
 
           <Text style={styles.textContainer}>
             O Bem Estar é a ferramenta que você precisa para uma pré-avaliação simples e objetiva da sua ansiedade. Com perguntas cuidadosamente elaboradas, nossa abordagem direta permite que você avalie seu estado emocional de forma rápida e eficaz. Lembre-se de que esta avaliação é apenas um ponto de partida e não substitui um diagnóstico feito por um profissional de saúde mental qualificado.

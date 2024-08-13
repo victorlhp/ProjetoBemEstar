@@ -3,20 +3,31 @@ import { View, TextInput, Text, ImageBackground, StyleSheet } from 'react-native
 import { Button } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { auth, db } from './firebaseConfig';
+import { updateProfile } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore"; 
 
-const CapturarNome = () => {
-  const [nome, setNome] = useState('');
-  
+const AtualizarPerfil = () => {
+  const user = auth.currentUser;
+  const [nomeExibicao, setNomeExibicao] = useState(user.displayName);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const salvarNome = async () => {
-    try {
-      await AsyncStorage.setItem('nomeUsuario', nome);
-      router.replace('/introducao'); // Substitua '/telaSeguinte' pelo caminho da próxima tela
-    } catch (error) {
-      console.error('Erro ao salvar nome:', error);
-    }
-  };
+  const handleAtualizarPerfil = async () => {
+      try {
+          setLoading(true);
+          await updateProfile(user, { displayName: nomeExibicao });
+          await setDoc(doc(db, "usuarios", user.uid), {
+              nomeExibicao: nomeExibicao
+          });
+          setLoading(false);
+          router.replace('/introducao');
+      } catch (error) {
+          console.error(error.code);
+          console.error(error.message);
+          setLoading(false);
+      }
+  }
 
   return (
     <ImageBackground
@@ -25,19 +36,20 @@ const CapturarNome = () => {
       imageStyle={{ opacity: 0.2 }}
       resizeMode="cover"
     >
-      <View style={styles.innerContainer}>
-        <Text style={styles.label}>Digite seu nome:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Seu nome"
-          placeholderTextColor="#000"
-          value={nome}
-          onChangeText={setNome}
-        />
-        <Button mode="contained" onPress={salvarNome} style={styles.button}>
+       
+       <View style={styles.innerContainer}>
+    <Text style={styles.label}>Digite seu nome:</Text>
+      <TextInput
+      style={styles.input}
+        value={nomeExibicao}
+        onChangeText={setNomeExibicao}
+        placeholder="Digite seu nome"
+        placeholderTextColor="#000"
+      />
+      <Button mode="contained" onPress={handleAtualizarPerfil} loading={loading} style={styles.button}>
           Avançar
         </Button>
-      </View>
+    </View>
     </ImageBackground>
   );
 };
@@ -72,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CapturarNome;
+export default AtualizarPerfil;

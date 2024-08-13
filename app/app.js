@@ -9,6 +9,7 @@ import { signOut } from 'firebase/auth';
 import { Image } from "react-native";
 
 
+
 // Largura da tela para uso em estilos
 const screenWidth = Dimensions.get('window').width;
 
@@ -141,7 +142,7 @@ const App = () => {
       const user = auth.currentUser;
       if (user) {
         const email = user.email;
-        const nome = user.displayName || 'Usuário';
+        const nome = user.displayName;
         const userId = user.uid;
 
         try {

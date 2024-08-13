@@ -6,21 +6,12 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 // Função para adicionar ou atualizar dados de um usuário
 export const addUser = async (userId, nome, email) => {
   try {
-    // Referencia o documento pelo ID do usuário
     const userDoc = doc(db, 'usuarios', userId);
-
-    // Define os dados do usuário
-    const userData = {
-      nome,
-      email,
-    };
-
-    // Adiciona ou atualiza os dados do usuário
-    await setDoc(userDoc, userData, { merge: true });
-
+    await setDoc(userDoc, { nome, email }, { merge: true });
     console.log('Dados do usuário salvos com sucesso!');
   } catch (error) {
-    console.error('Erro ao salvar dados do usuário:', error);
+    console.error('Erro ao salvar dados do usuário:', error);   
+
   }
 };
 
@@ -61,10 +52,9 @@ export const addResultados = async (userId, pontuacaoAnsiedade, pontuacaoDepress
 };
 
 // Função para obter dados de um usuário específico
-export const getUserData = async (email) => {
+export const getUserData = async (userId) => {
   try {
-    // Referencia o documento do usuário pelo email
-    const userDoc = doc(db, 'usuarios', email);
+    const userDoc = doc(db, 'usuarios', userId);
     const docSnap = await getDoc(userDoc);
 
     if (docSnap.exists()) {
