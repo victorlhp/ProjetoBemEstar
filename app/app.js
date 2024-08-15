@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   },
   fullScreenBackground: {
     flex: 1, 
-    backgroundColor: '#666680', 
+    backgroundColor: '#424266', 
     justifyContent: 'center',
     alignItems: 'center',
   },
