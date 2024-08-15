@@ -37,20 +37,7 @@ const LoginScreen = () => {
     clientId: "123743475693-469jbmsbpq8nn59ob35nl1cqfdj1mqhs.apps.googleusercontent.com", // Substitua pelo seu Client ID do Google
   });
 
-  useEffect(() => {
-    if (response?.type === 'success') {
-      const { id_token } = response.params;
-      const credential = GoogleAuthProvider.credential(id_token);
-      signInWithCredential(auth, credential)
-        .then(userCredential => {
-          console.log('Login realizado com sucesso!', userCredential.user);
-          router.replace('/introducao');
-        })
-        .catch(error => {
-          console.error('Erro de login com Google', error);
-        });
-    }
-  }, [response]);
+  
 
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -105,18 +92,6 @@ const LoginScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* <Pressable
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? '#ddd' : '#2196F3'
-          },
-          styles.button
-        ]}
-        onPress={handleLogin} // Use handleLogin diretamente
-      >
-        <Text style={styles.text}>Login</Text>
-      </Pressable> */}
-
     <View style={styles.buttonContainer}>
       <Button
         mode="contained" // Define o estilo do botão
@@ -130,14 +105,7 @@ const LoginScreen = () => {
       </Button>
     </View>
 
-      {/* Botão de Login com Google */}
-      <TouchableOpacity
-        style={styles.googleButton}
-        onPress={() => promptAsync()}
-        disabled={!request}
-      >
-        <Text style={styles.buttonText}>Login com Google</Text>
-      </TouchableOpacity>
+      
 
       <Pressable style={styles.createAccountButton} onPress={handleCreateAccount}>
         <Link href="criacaoConta" asChild>
@@ -175,6 +143,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#6666ff',
   },
+
   text: {
     color: '#fff',
     fontSize: 16,
