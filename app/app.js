@@ -204,7 +204,7 @@ const App = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.fullScreenBackground}>
       {showResultados ? (
         <Resultados
           pontuacaoAnsiedade={respostas.filter((_, idx) => idx % 2 === 0).reduce((acc, resposta) => acc + resposta.valor, 0)}
@@ -224,6 +224,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#eeb8b4',
     alignItems: 'center',
     justifyContent: 'center',
+    height: '100%',
+    padding: 12,
   },
   contentContainer: {
     flex: 1,
@@ -233,7 +235,7 @@ const styles = StyleSheet.create({
   },
   fullScreenBackground: {
     flex: 1, 
-    backgroundColor: '#ccccff', 
+    backgroundColor: '#666680', 
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -248,7 +250,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textAlign: 'center',
     marginBottom: 20,
-    color: '#000',
+    color: '#e5e5ff',
     paddingHorizontal: 25,
   },
   botoesContainer: {
@@ -341,12 +343,11 @@ const styles = StyleSheet.create({
   },
   
     logoutButton: {
-    top: 60, // Distância do topo da tela
-    left: 170, // Distância da margem direita
     backgroundColor: '#6666ff',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    alignItems: 'center',
+    alignSelf: 'flex-end',
+    
   },
 
   logoutButtonText: {
