@@ -59,28 +59,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#ccccff',
+    width: '100%', // Largura da logomarca
+    height: 400, // Altura da logomarca
+    padding: 40,
   },
   innerContainer: {
-    width: '80%',
-    alignItems: 'center',
+    width: '100%',
+    alignItems: 'left',
   },
+  
   label: {
+    color: '#000000',
     fontSize: 18,
-    marginBottom: 10,
-    color: '#333',
+    fontWeight: 'bold',
     fontStyle: 'italic',
+    alignSelf: 'left',
   },
   input: {
     width: '100%',
     padding: 10,
     backgroundColor: '#ebebff',
-    borderRadius: 5,
+   
     fontSize: 16,
     marginBottom: 20,
   },
   button: {
     width: '100%',
-    backgroundColor: '#9ed9', // Cor do botão
+    backgroundColor: '#6666ff',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
 });
 
