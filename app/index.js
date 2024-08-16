@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor: '#CCCCFF',
+    width: '100%',
   },
 
   logoContainer: {

@@ -229,15 +229,16 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'left',
     justifyContent: 'center',
-    padding: 20,
-  },
+    width: '100%',
+},
   fullScreenBackground: {
     flex: 1, 
     backgroundColor: '#424266', 
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
   },
   imageBackground: {
     width: 435,
@@ -248,15 +249,17 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: '300',
     fontStyle: 'italic',
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom: 20,
     color: '#e5e5ff',
     paddingHorizontal: 25,
   },
   botoesContainer: {
     flexDirection: 'column',
-    marginVertical: 20,
+    marginVertical: 0,
     top: 100,
+    textAlign: 'left',
+    
   },
   botao: {
     paddingVertical: 25,
@@ -266,35 +269,37 @@ const styles = StyleSheet.create({
   },
   botao1: {
     backgroundColor: '#CCFFCC',
-    paddingHorizontal: 100,
+    paddingHorizontal: 25,
   },
   botao1Pressed: {
     backgroundColor: '#7a997a',
   },
   botao2: {
     backgroundColor: '#CCF6FF',
-    paddingHorizontal: 105,
+    paddingHorizontal: 25,
   },
   botao2Pressed: {
     backgroundColor: '#88a7b5',
   },
   botao3: {
     backgroundColor: '#FFFFCC',
-    paddingHorizontal: 75,
+    paddingHorizontal: 25,
+    
   },
   botao3Pressed: {
     backgroundColor: '#99997a',
   },
   botao4: {
     backgroundColor: '#FFCCCC',
-    paddingHorizontal: 130,
+    paddingHorizontal: 25,
   },
   botao4Pressed: {
     backgroundColor: '#a67a7a',
   },
   botaoTexto: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: 'left',
+    alignSelf: 'left',
     fontStyle: 'italic',
     color: '#000',
   },
