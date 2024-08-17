@@ -63,10 +63,12 @@ const Pergunta = ({ indice, handleResposta }) => {
 };
 
 const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
+  const pontuacaoAnsiedadeFinal = Math.min(pontuacaoAnsiedade, 21);
+  const pontuacaoDepressaoFinal = Math.min(pontuacaoDepressao, 21);
   const getGaugeColor = (score) => {
     if (score <= 7) return 'green'; // Cor verde para pontuação baixa
     if (score >=8 && score <= 11) return 'yellow'; // Cor amarela para pontuação média
-    return 'red'; // Cor vermelha para pontuação alta
+    if (score >=12 && score <= 21) return 'red'; // Cor vermelha para pontuação alta
   };
 
   const interpretacaoA = (pontuacaoAnsiedade) => {
@@ -93,17 +95,17 @@ const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
         width={15}
         rotation={-90} // Rotação do gráfico
         arcSweepAngle={180} // Ângulo do arco do gráfico
-        fill={(pontuacaoAnsiedade / 21) * 100} // Calcula a porcentagem para o gráfico
-        tintColor={getGaugeColor(pontuacaoAnsiedade)}
+        fill={pontuacaoAnsiedadeFinal} 
+        tintColor={getGaugeColor(pontuacaoAnsiedadeFinal)}
         backgroundColor="#e0e0e0"
       >
         {() => (
           <Text style={styles.chartText}>
-            {pontuacaoAnsiedade}
+            {pontuacaoAnsiedadeFinal}
           </Text>
         )}
       </AnimatedCircularProgress>
-      <Text style={styles.interpretacao}>{interpretacaoA(pontuacaoAnsiedade)}</Text>
+      <Text style={styles.interpretacao}>{interpretacaoA(pontuacaoAnsiedadeFinal)}</Text>
 
       <Text style={styles.chartTitle}>Depressão</Text>
       <AnimatedCircularProgress
@@ -111,18 +113,18 @@ const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
         width={15}
         rotation={-90} // Rotação do gráfico
         arcSweepAngle={180} // Ângulo do arco do gráfico
-        fill={(pontuacaoDepressao / 21) * 100} // Calcula a porcentagem para o gráfico
-        tintColor={getGaugeColor(pontuacaoDepressao)}
+        fill={pontuacaoDepressaoFinal} // Calcula a porcentagem para o gráfico
+        tintColor={getGaugeColor(pontuacaoDepressaoFinal)}
         backgroundColor="#e0e0e0"
         
       >
         {() => (
           <Text style={styles.chartText}>
-            {pontuacaoDepressao}
+            {pontuacaoDepressaoFinal}
           </Text>
         )}
       </AnimatedCircularProgress>
-      <Text style={styles.interpretacao}>{interpretacaoD(pontuacaoDepressao)}</Text>
+      <Text style={styles.interpretacao}>{interpretacaoD(pontuacaoDepressaoFinal)}</Text>
 
       <TouchableOpacity onPress={onLogout} style={styles.logoutButton}>
         <Text style={styles.logoutButtonText}>Sair</Text>
