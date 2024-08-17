@@ -93,3 +93,11 @@ const styles = StyleSheet.create({
 });
 
 export default AtualizarPerfil;
+
+
+
+// if (existir && questionarioConcluido == true){
+//   //     // tela de resultados
+//   // } else {
+//   //     // responder
+//   // }
