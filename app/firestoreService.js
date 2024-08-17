@@ -1,7 +1,7 @@
 // firestoreService.js
 
 import { db } from './firebaseConfig'; // Certifique-se de que o caminho está correto
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, collection, getDocs } from 'firebase/firestore';
 
 // Função para adicionar ou atualizar dados de um usuário
 export const addUser = async (userId, nome, email) => {
@@ -19,10 +19,10 @@ export const addUser = async (userId, nome, email) => {
 export const addResposta = async (userId, pergunta, resposta) => {
   try {
     // Referencia o documento do usuário e a coleção de respostas
-    const respostasCollection = doc(db, 'usuarios', userId, 'respostas', pergunta);
+    const respostasCollection = doc(db, 'usuarios', userId);
 
     // Adiciona a resposta ao documento
-    await setDoc(respostasCollection, { resposta }, { merge: true });
+    await setDoc(respostasCollection, { [pergunta]: resposta }, { merge: true });
 
     console.log('Resposta salva com sucesso!');
   } catch (error) {
@@ -58,7 +58,8 @@ export const getUserData = async (userId) => {
     const docSnap = await getDoc(userDoc);
 
     if (docSnap.exists()) {
-      return docSnap.data();
+      const userData = docSnap.data();
+      return userData;
     } else {
       console.log('Usuário não encontrado.');
       return null;
@@ -70,4 +71,4 @@ export const getUserData = async (userId) => {
 };
 
 
-// VnAnvUvYnGPRRVQHvmz9b4LYmTz2
+
