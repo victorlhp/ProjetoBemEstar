@@ -96,7 +96,7 @@ const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
         width={15}
         rotation={-90}
         arcSweepAngle={180}
-        fill={pontuacaoAnsiedadeFinal} 
+        fill={(pontuacaoAnsiedadeFinal / 21) * 100} 
         tintColor={getGaugeColor(pontuacaoAnsiedadeFinal)}
         backgroundColor="#e0e0e0"
       >
@@ -114,7 +114,7 @@ const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
         width={15}
         rotation={-90}
         arcSweepAngle={180}
-        fill={pontuacaoDepressaoFinal}
+        fill={(pontuacaoDepressaoFinal / 21) * 100}
         tintColor={getGaugeColor(pontuacaoDepressaoFinal)}
         backgroundColor="#e0e0e0"
       >
