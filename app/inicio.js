@@ -72,14 +72,14 @@ const styles = StyleSheet.create({
   label: {
     color: '#000000',
     fontSize: 18,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
+    fontFamily: 'Inder_400Regular',
     alignSelf: 'left',
   },
   input: {
     width: '100%',
     padding: 10,
     backgroundColor: '#ebebff',
+    fontFamily: 'Inder_400Regular',
    
     fontSize: 16,
     marginBottom: 20,

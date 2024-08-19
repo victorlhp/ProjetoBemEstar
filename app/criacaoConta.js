@@ -96,10 +96,7 @@ const CriarConta = () => {
             <Text style={styles.mostrarSenhaButtonText}>{repetirSenhaVisivel ? 'Esconder' : 'Mostrar'}</Text>
           </TouchableOpacity>
         </View>
-        {/* Botão "Criar Conta" */}
-        {/* <Pressable style={styles.button} onPress={handleCriarConta} loading={loading}>
-          <Text style={styles.buttonText}>Criar Conta</Text>
-        </Pressable> */}
+        
 
 <View style={styles.buttonContainer}>
       <Button
@@ -146,6 +143,7 @@ const styles = StyleSheet.create({
     fontSize: 16, // Tamanho da fonte
     fontWeight: 'bold', // Peso da fonte
     fontStyle: 'italic',
+    fontFamily:'Inder_400Regular'
   },
 
   logoBackground: {
@@ -188,6 +186,7 @@ const styles = StyleSheet.create({
   mostrarSenhaButton: {
     marginLeft: 10,
     padding: 10,
+    fontFamily: 'Inder_400Regular',
   },
   mostrarSenhaButtonText: {
     color: 'black',

@@ -11,6 +11,7 @@ import * as Google from 'expo-auth-session/providers/google';
 import firebase from '@react-native-firebase/app';
 import firestore from '@react-native-firebase/firestore';
 
+
 const App = () => {
   // Verifica se o Firebase já está inicializado
   if (!firebase.apps.length) {
@@ -31,6 +32,7 @@ const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+ 
 
   // Configurar o provedor de autenticação do Google
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
@@ -62,6 +64,9 @@ const LoginScreen = () => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword); // Alternar entre mostrar e ocultar a senha
   };
+
+ 
+
 
   return (
     <ScrollView style={styles.container}>
@@ -149,6 +154,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    fontFamily: 'Inder_400Regular',
   },
 
   googleButton: {
@@ -172,6 +178,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
     backgroundColor: '#ebebff',
+    fontFamily: 'Inder_400Regular',
     
   },
 
@@ -187,6 +194,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 10,
     marginBottom: 35,
+    fontFamily: 'Inder_400Regular',
+  },
+
+  passwordInput: {
+    
+    fontFamily: 'Inder_400Regular',
   },
 
   showPasswordButton: {
@@ -198,6 +211,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
+    fontFamily: 'Inder_400Regular',
   },
 
   text: {
@@ -220,6 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     textDecorationLine: 'underline',
+    fontFamily: 'Inder_400Regular',
   },
 
   createAccountButton: {
@@ -232,6 +247,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textDecorationLine: 'underline',
     marginBottom: 10,
+    fontFamily: 'Inder_400Regular'
   },
 });
 

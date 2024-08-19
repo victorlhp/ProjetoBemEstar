@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
   },
   pergunta: {
     fontWeight: '300',
-    fontStyle: 'italic',
+    fontFamily: 'Inder_400Regular',
     textAlign: 'left',
     marginBottom: 20,
     color: '#e5e5ff',
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
     top: 100,
     textAlign: 'left',
     },
-    
+
   botao: {
     paddingVertical: 25,
     marginHorizontal: 10,

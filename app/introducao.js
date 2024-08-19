@@ -98,17 +98,18 @@ const styles = StyleSheet.create({
   },
 
   textContainer: {
-    fontStyle: 'italic',
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
     fontSize: 20,
+    fontFamily: 'Inder_400Regular',
   },
 
   text: {
     flex: 9,
     color: '#333', // Cor do texto
     marginHorizontal: 5,
+    fontFamily: 'Inder_400Regular',
   },
 
   button: {
@@ -116,21 +117,23 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
     top: 83,
+    fontFamily: 'Inder_400Regular',
   },
 
   button2: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+    fontFamily: 'Inder_400Regular',
   },
 
   user: {
-    fontStyle: 'italic',
     padding: 50,
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
     fontSize: 17,
+    fontFamily: 'Inder_400Regular',
   },
 });
 
