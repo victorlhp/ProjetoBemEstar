@@ -229,28 +229,38 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   contentContainer: {
+    flex: 1,
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: 10,
     padding: 20,
     marginHorizontal: 20,
     marginVertical: 60,
+    justifyContent: 'center',
     alignItems: 'center',
   },
+
   botoesContainer: {
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+
   botao: {
-    borderRadius: 5,
-    marginVertical: 5,
     padding: 10,
     alignItems: 'center',
-    width: screenWidth * 0.6,
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+    width: '80%',  // O botão vai ocupar 80% da largura da tela, se ajustando automaticamente
+    marginVertical: 10,
   },
+
   botaoTexto: {
     color: '#fff',
     fontSize: 16,
   },
+
   indiceTexto: {
     fontSize: 20,
     color: '#000', // Alterar para a cor que desejar
@@ -285,9 +295,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 30,
+    width: '50%',  // A largura da logo será 50% da largura da tela
+    height: undefined, // Deixe a altura indefinida para manter a proporção
+    aspectRatio: 1, // Manter a proporção original
+    resizeMode: 'contain',
+    marginBottom: 20,
   },
 
   container: {
@@ -317,21 +329,22 @@ const styles = StyleSheet.create({
     opacity: 0.1,
   },
   pergunta: {
-    fontSize: 25,
     fontWeight: '300',
     fontStyle: 'italic',
     textAlign: 'left',
     marginBottom: 20,
     color: '#e5e5ff',
     paddingHorizontal: 25,
+    fontSize: screenWidth * 0.06,  // Texto responsivo com 6% da largura da tela
   },
+ 
   botoesContainer: {
     flexDirection: 'column',
     marginVertical: 0,
     top: 100,
     textAlign: 'left',
+    },
     
-  },
   botao: {
     paddingVertical: 25,
     marginHorizontal: 10,
