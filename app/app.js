@@ -41,6 +41,7 @@ const Pergunta = ({ indice, handleResposta }) => {
       imageStyle={styles.imageBackground}
     >
       <View style={styles.contentContainer}>
+        <Text style={styles.indiceTexto}>Pergunta {indice + 1} de {perguntas.length}</Text>
         <Text style={styles.pergunta}>{perguntaAtual.enunciado}</Text>
         <View style={styles.botoesContainer}>
           {perguntaAtual.respostas.map((resposta, idx) => (
@@ -66,23 +67,23 @@ const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
   const pontuacaoAnsiedadeFinal = Math.min(pontuacaoAnsiedade, 21);
   const pontuacaoDepressaoFinal = Math.min(pontuacaoDepressao, 21);
   const getGaugeColor = (score) => {
-    if (score <= 7) return 'green'; // Cor verde para pontuação baixa
-    if (score >=8 && score <= 11) return 'yellow'; // Cor amarela para pontuação média
-    if (score >=12 && score <= 21) return 'red'; // Cor vermelha para pontuação alta
+    if (score <= 7) return 'green';
+    if (score >=8 && score <= 11) return 'yellow';
+    if (score >=12 && score <= 21) return 'red';
   };
 
   const interpretacaoA = (pontuacaoAnsiedade) => {
     if (pontuacaoAnsiedade >= 0 && pontuacaoAnsiedade <= 7) return 'Improvável: Não há probabilidade';
     if (pontuacaoAnsiedade >= 8 && pontuacaoAnsiedade <= 11) return 'Possível: Procure um Profissional de Saúde Mental';
     if (pontuacaoAnsiedade >= 12 && pontuacaoAnsiedade <= 21) return 'Provável: Alta Probabilidade. Procure um Especialista em saúde mental';
-    return 'Resultado fora do intervalo';
+   
   };
 
   const interpretacaoD = (pontuacaoDepressao) => {
     if (pontuacaoDepressao >= 0 && pontuacaoDepressao <= 7) return 'Improvável: Você provavelmente não apresenta sintomas significativos de depressão, mas continue cuidando do seu bem-estar emocional.';
     if (pontuacaoDepressao >= 8 && pontuacaoDepressao <= 11) return 'Possível: Há alguns sintomas leves de depressão; considere monitorar seu estado emocional e buscar orientação se necessário.';
     if (pontuacaoDepressao >= 12 && pontuacaoDepressao <= 21) return 'Provável: Sintomas significativos de depressão estão presentes; é importante procurar avaliação e apoio profissional.';
-    return 'Resultado fora do intervalo';
+    
   };
 
   return (
@@ -93,8 +94,8 @@ const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
       <AnimatedCircularProgress
         size={180}
         width={15}
-        rotation={-90} // Rotação do gráfico
-        arcSweepAngle={180} // Ângulo do arco do gráfico
+        rotation={-90}
+        arcSweepAngle={180}
         fill={pontuacaoAnsiedadeFinal} 
         tintColor={getGaugeColor(pontuacaoAnsiedadeFinal)}
         backgroundColor="#e0e0e0"
@@ -111,12 +112,11 @@ const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
       <AnimatedCircularProgress
         size={180}
         width={15}
-        rotation={-90} // Rotação do gráfico
-        arcSweepAngle={180} // Ângulo do arco do gráfico
-        fill={pontuacaoDepressaoFinal} // Calcula a porcentagem para o gráfico
+        rotation={-90}
+        arcSweepAngle={180}
+        fill={pontuacaoDepressaoFinal}
         tintColor={getGaugeColor(pontuacaoDepressaoFinal)}
         backgroundColor="#e0e0e0"
-        
       >
         {() => (
           <Text style={styles.chartText}>
@@ -206,21 +206,90 @@ const App = () => {
   };
 
   return (
-    <View style={styles.fullScreenBackground}>
-      {showResultados ? (
+    <>
+      {!showResultados ? (
+        <Pergunta indice={indice} handleResposta={handleResposta} />
+      ) : (
         <Resultados
           pontuacaoAnsiedade={respostas.filter((_, idx) => idx % 2 === 0).reduce((acc, resposta) => acc + resposta.valor, 0)}
           pontuacaoDepressao={respostas.filter((_, idx) => idx % 2 !== 0).reduce((acc, resposta) => acc + resposta.valor, 0)}
           onLogout={handleLogout}
         />
-      ) : (
-        <Pergunta indice={indice} handleResposta={handleResposta} />
       )}
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  // Seus estilos aqui
+  fullScreenBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+  },
+  contentContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 10,
+    padding: 20,
+    marginHorizontal: 20,
+    marginVertical: 60,
+    alignItems: 'center',
+  },
+  botoesContainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  botao: {
+    borderRadius: 5,
+    marginVertical: 5,
+    padding: 10,
+    alignItems: 'center',
+    width: screenWidth * 0.6,
+  },
+  botaoTexto: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  indiceTexto: {
+    fontSize: 20,
+    color: '#000', // Alterar para a cor que desejar
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  chartTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    marginVertical: 10,
+  },
+  chartText: {
+    fontSize: 20,
+    color: '#333',
+  },
+  interpretacao: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 20,
+    color: '#555',
+  },
+  logoutButton: {
+    backgroundColor: '#ff6347',
+    padding: 10,
+    borderRadius: 5,
+  },
+  logoutButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 30,
+  },
+
   container: {
     flex: 1,
     backgroundColor: '#eeb8b4',
@@ -363,6 +432,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontStyle: 'italic',
   },
+
+  // Outros estilos...
 });
 
 export default App;
