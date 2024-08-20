@@ -8,7 +8,7 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { signOut } from 'firebase/auth';
 import { Image } from "react-native";
 
-//Commit
+
 
 
 
