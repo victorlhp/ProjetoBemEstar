@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
-    top: 83,
+    
     fontFamily: 'Inder_400Regular',
   },
 

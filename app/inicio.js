@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#ebebff',
     fontFamily: 'Inder_400Regular',
-   
     fontSize: 16,
     marginBottom: 20,
   },

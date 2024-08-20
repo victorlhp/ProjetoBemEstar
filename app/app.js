@@ -386,12 +386,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'left',
     alignSelf: 'left',
-    fontStyle: 'italic',
+    fontFamily: 'Inder_400Regular',
     color: '#000',
   },
   chartTitle: {
     fontSize: 30,
-    fontStyle: 'italic',
+    fontFamily: 'Inder_400Regular',
     textAlign: 'center',
     marginBottom: 5, // Reduziu o espaçamento inferior
     color: '#000000',
@@ -403,6 +403,7 @@ const styles = StyleSheet.create({
     color: '#000',
     textAlign: 'center',
     marginBottom: 50, 
+    fontFamily: 'Inder_400Regular',
   },
 
   chartContainer: {
@@ -414,7 +415,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     color: '#000000',
-    fontStyle: 'italic',
+    fontFamily: 'Inder_400Regular',
     marginTop: 5, // Aumentou a margem superior para aproximar do gráfico
     top: -55, //
   },
@@ -423,6 +424,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#000000',
     marginBottom: 10, // Diminuído para deixar o texto mais próximo do gráfico
+    fontFamily: 'Inder_400Regular',
   },
 
   logo: {
@@ -433,7 +435,7 @@ const styles = StyleSheet.create({
     top: -40,
   },
   
-    logoutButton: {
+  logoutButton: {
     backgroundColor: '#6666ff',
     paddingVertical: 10,
     paddingHorizontal: 20,

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   
   textContainer: {
-    fontStyle:'italic',
+    fontFamily: 'Inder_400Regular',
     justifyContent: 'center',
     flexDirection:'column',
     alignItems:'center',
