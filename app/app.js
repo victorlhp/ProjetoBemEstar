@@ -266,8 +266,9 @@ const styles = StyleSheet.create({
   indiceTexto: {
     fontSize: 20,
     color: '#000', // Alterar para a cor que desejar
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom: 10,
+
   },
   chartTitle: {
     fontSize: 24,

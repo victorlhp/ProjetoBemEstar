@@ -47,34 +47,41 @@ const TelaPersonalizada = () => {
         >
           <Text style={styles.user}>Bem Vindo, {nomeExibicao}</Text>
 
-          <Text style={styles.textContainer}>
-            O Bem Estar é a ferramenta que você precisa para uma pré-avaliação simples e objetiva da sua ansiedade. Com perguntas cuidadosamente elaboradas, nossa abordagem direta permite que você avalie seu estado emocional de forma rápida e eficaz. Lembre-se de que esta avaliação é apenas um ponto de partida e não substitui um diagnóstico feito por um profissional de saúde mental qualificado.
-          </Text>
+            <View>
+          <Text style={styles.text1}>
+            O Bem Estar é a ferramenta que você precisa para uma pré-avaliação simples e objetiva da sua ansiedade. 
+            </Text> 
+            </View>
+            
+            <View>
+            <Text style={styles.text2}>
+            Lembre-se de que esta avaliação é apenas um ponto de partida e não substitui um diagnóstico feito por um profissional de saúde mental qualificado.
+            </Text>
+            </View>
+            
         </ImageBackground>
       </View>
 
       <View style={styles.button}>
         <Link href="referencias" asChild>
           <Button
-            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+           
             mode="text"
             onPress={() => console.log('Sobre')}
-            labelStyle={{ color: 'black', fontSize: 18 }}
+            labelStyle={{ color: 'white', fontSize: 18 }}
           >
-            Sobre
+            Referências
           </Button>
         </Link>
-      </View>
-
-      <View style={styles.button2}>
+     
         <Link href="app" asChild>
           <Button
-            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
-            mode="text"
+            
+            mode="contained"
             onPress={() => console.log('Iniciar')}
-            labelStyle={{ color: 'black', fontSize: 18 }}
+            labelStyle={{ color: 'white', fontSize: 18 }}
           >
-            Iniciar
+            Iniciar Avaliação
           </Button>
         </Link>
       </View>
@@ -85,7 +92,7 @@ const TelaPersonalizada = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eeb8b4', // Cor de fundo
+    backgroundColor: '#424266', // Cor de fundo
   },
 
   logoBackground: {
@@ -97,35 +104,40 @@ const styles = StyleSheet.create({
     padding: 40,
   },
 
-  textContainer: {
+  text1: {
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
     fontSize: 20,
     fontFamily: 'Inder_400Regular',
+    color: '#e5e5ff', // Cor do texto
+  },
+
+  text2: {
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    fontSize: 20,
+    fontFamily: 'Inder_400Regular',
+    color: '#e5e5ff', // Cor do texto
   },
 
   text: {
     flex: 9,
-    color: '#333', // Cor do texto
+    color: '#e5e5ff', // Cor do texto
     marginHorizontal: 5,
     fontFamily: 'Inder_400Regular',
   },
 
   button: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-start',
-    
+    // alignSelf: 'flex-end',
     fontFamily: 'Inder_400Regular',
+    alignItems: 'flex-end',
+    flexDirection: 'row', 
+    justifyContent: 'space-between',
   },
 
-  button2: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    fontFamily: 'Inder_400Regular',
-  },
 
   user: {
     padding: 50,
@@ -134,6 +146,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 17,
     fontFamily: 'Inder_400Regular',
+    color: '#e5e5ff', // Cor do texto
   },
 });
 
