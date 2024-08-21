@@ -16,7 +16,8 @@ const TelaPersonalizada = () => {
         resizeMode="cover"
       >
       <Text style={styles.textContainer}>Escala HAD - Avaliação do nível de ansiedade e depressão (Universidade Estadual Paulista "Júlio de Mesquita Filho")</Text>
-      <Text style={styles.textContainer}>Referências: Zigmond, A.S.7 Snaith,R.P. The Hospital Anxiety and Depression Scale. Acta Psychiatrica Scandinavica 1983; 67,361-370 Botega NJ Bio MR, Zomignami MA, Garcia JR C, Pereira WAB. Transtornos do humor em enfermaria de clínica médica e validação de escala de medida (HAD) de ansiedade e depressão. Revista de Saúde Pública, 29(5): 355-63, 1995.</Text>
+      <Text style={styles.textContainer}>Referências: Zigmond, A.S.7 Snaith,R.P. The Hospital Anxiety and Depression Scale. Acta Psychiatrica Scandinavica 1983; 67,361-370 Botega NJ,</Text>
+      <Text style={styles.textContainer}>Bio MR, Zomignami MA, Garcia JR C, Pereira WAB. Transtornos do humor em enfermaria de clínica médica e validação de escala de medida (HAD) de ansiedade e depressão. Revista de Saúde Pública, 29(5): 355-63, 1995.</Text>
       </ImageBackground>
       </View>
 
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     alignItems:'center',
     fontSize: 25,
+    paddingBottom: 30,
   },
   
   text: {
@@ -66,7 +68,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
-        top: 83,
+        fontFamily: 'Inder_400Regular',
+
         
   },
 
@@ -74,6 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+    fontFamily: 'Inder_400Regular',
 },
   
 });

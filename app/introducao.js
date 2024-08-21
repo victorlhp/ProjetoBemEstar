@@ -5,15 +5,15 @@ import { Link } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { auth, db } from './firebaseConfig';
 import { updateProfile } from 'firebase/auth';
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, setDoc } from "firebase/firestore";
 
 const TelaPersonalizada = () => {
   // const [nomeUsuario, setNomeUsuario] = useState('');
   const user = auth.currentUser;
   const [nomeExibicao, setNomeExibicao] = useState(user.displayName);
   const [loading, setLoading] = useState(false);
-  
-  
+
+
 
   useEffect(() => {
     const recuperarNome = async () => {
@@ -21,15 +21,15 @@ const TelaPersonalizada = () => {
         setLoading(true);
         await updateProfile(user, { displayName: nomeExibicao });
         await setDoc(doc(db, "usuarios", user.uid), {
-            nomeExibicao: nomeExibicao
+          nomeExibicao: nomeExibicao
         });
         setLoading(false);
-        
-    } catch (error) {
+
+      } catch (error) {
         console.error(error.code);
         console.error(error.message);
         setLoading(false);
-    }
+      }
     };
 
     recuperarNome();
@@ -47,25 +47,25 @@ const TelaPersonalizada = () => {
         >
           <Text style={styles.user}>Bem Vindo, {nomeExibicao}</Text>
 
-            <View>
-          <Text style={styles.text1}>
-            O Bem Estar é a ferramenta que você precisa para uma pré-avaliação simples e objetiva da sua ansiedade. 
-            </Text> 
-            </View>
-            
-            <View>
-            <Text style={styles.text2}>
-            Lembre-se de que esta avaliação é apenas um ponto de partida e não substitui um diagnóstico feito por um profissional de saúde mental qualificado.
+          <View>
+            <Text style={styles.text1}>
+              O Bem Estar é a ferramenta que você precisa para uma pré-avaliação simples e objetiva da sua ansiedade.
             </Text>
-            </View>
-            
+          </View>
+
+          <View>
+            <Text style={styles.text2}>
+              Lembre-se de que esta avaliação é apenas um ponto de partida e não substitui um diagnóstico feito por um profissional de saúde mental qualificado.
+            </Text>
+          </View>
+
         </ImageBackground>
       </View>
 
       <View style={styles.button}>
         <Link href="referencias" asChild>
           <Button
-           
+
             mode="text"
             onPress={() => console.log('Sobre')}
             labelStyle={{ color: 'white', fontSize: 18 }}
@@ -73,10 +73,10 @@ const TelaPersonalizada = () => {
             Referências
           </Button>
         </Link>
-     
+
         <Link href="app" asChild>
           <Button
-            
+
             mode="contained"
             onPress={() => console.log('Iniciar')}
             labelStyle={{ color: 'white', fontSize: 18 }}
@@ -105,6 +105,8 @@ const styles = StyleSheet.create({
   },
 
   text1: {
+    
+    paddingBottom: 40,
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
   },
 
   text2: {
+    
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
@@ -131,10 +134,9 @@ const styles = StyleSheet.create({
 
   button: {
     flex: 1,
-    // alignSelf: 'flex-end',
     fontFamily: 'Inder_400Regular',
     alignItems: 'flex-end',
-    flexDirection: 'row', 
+    flexDirection: 'row',
     justifyContent: 'space-between',
   },
 

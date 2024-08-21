@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
     backgroundColor: '#ebebff',
+    fontFamily: 'Inder_400Regular',
   },
   senhaContainer: {
     flexDirection: 'row',
@@ -190,6 +191,7 @@ const styles = StyleSheet.create({
   },
   mostrarSenhaButtonText: {
     color: 'black',
+    fontFamily: 'Inder_400Regular',
   },
 
 });

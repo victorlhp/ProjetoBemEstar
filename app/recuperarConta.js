@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
     textAlign: 'left',
+    fontFamily: 'Inder_400Regular',
   },
   input: {
     width: '100%',
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
     backgroundColor: '#ebebff',
+    fontFamily: 'Inder_400Regular',
   },
   button: {
     paddingVertical: 10,
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontStyle: 'italic',
+    fontFamily: 'Inder_400Regular',
     fontWeight: 'bold',
     textAlign: 'center',
   },
