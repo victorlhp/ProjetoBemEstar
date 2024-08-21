@@ -105,7 +105,9 @@ const CriarConta = () => {
         loading={loading} // Mostra um indicador de carregamento
         disabled={loading} // Desabilita o botão enquanto está carregando
         contentStyle={styles.button} // Estilo para o conteúdo do botão
-        labelStyle={styles.buttonText} // Estilo para o texto do botão
+        labelStyle={{color: '#fff', // Cor do texto
+        fontSize: 16, // Tamanho da fonte
+        fontFamily:'Inder_400Regular'}} // Estilo para o texto do botão
       >
         Criar Conta
       </Button>
@@ -139,11 +141,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: '#fff', // Cor do texto
-    fontSize: 16, // Tamanho da fonte
-    fontWeight: 'bold', // Peso da fonte
-    fontStyle: 'italic',
-    fontFamily:'Inder_400Regular'
+    
   },
 
   logoBackground: {

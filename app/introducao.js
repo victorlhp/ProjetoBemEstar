@@ -68,7 +68,7 @@ const TelaPersonalizada = () => {
 
             mode="text"
             onPress={() => console.log('Sobre')}
-            labelStyle={{ color: 'white', fontSize: 18 }}
+            labelStyle={{ color: 'white', fontSize: 18, fontFamily: 'Inder_400Regular' }}
           >
             Referências
           </Button>
@@ -79,7 +79,7 @@ const TelaPersonalizada = () => {
 
             mode="contained"
             onPress={() => console.log('Iniciar')}
-            labelStyle={{ color: 'white', fontSize: 18 }}
+            labelStyle={{ color: 'white', fontSize: 18, fontFamily: 'Inder_400Regular' }}
           >
             Iniciar Avaliação
           </Button>

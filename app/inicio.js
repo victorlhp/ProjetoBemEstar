@@ -46,7 +46,7 @@ const AtualizarPerfil = () => {
         placeholder="Digite seu nome"
         placeholderTextColor="#000"
       />
-      <Button mode="contained" onPress={handleAtualizarPerfil} loading={loading} style={styles.button}>
+      <Button mode="contained" onPress={handleAtualizarPerfil} loading={loading} style={styles.button} labelStyle={{fontFamily: 'Inder_400Regular'}}>
           Avançar
         </Button>
     </View>

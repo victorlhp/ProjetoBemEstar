@@ -104,7 +104,7 @@ const LoginScreen = () => {
         loading={loading} 
         disabled={loading}
         contentStyle={styles.buttonContent} // Estilo para o conteúdo do botão
-        labelStyle={styles.text} // Estilo para o texto do botão
+        labelStyle={{color: '#fff',fontSize: 16, fontFamily: 'Inder_400Regular'}} // Estilo para o texto do botão
       >
         Login
       </Button>
@@ -148,13 +148,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: '#6666ff',
-  },
-
-  text: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    fontFamily: 'Inder_400Regular',
   },
 
   googleButton: {

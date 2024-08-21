@@ -43,7 +43,7 @@ const Pergunta = ({ indice, handleResposta }) => {
       imageStyle={styles.imageBackground}
     >
       <View style={styles.contentContainer}>
-        <Text style={styles.indiceTexto}>Pergunta {indice + 1} de {perguntas.length}</Text>
+        <Text style={styles.indiceTexto}>{indice + 1} de {perguntas.length}</Text>
         <Text style={styles.pergunta}>{perguntaAtual.enunciado}</Text>
         <View style={styles.botoesContainer}>
           {perguntaAtual.respostas.map((resposta, idx) => (
@@ -129,7 +129,7 @@ const Resultados = ({ pontuacaoAnsiedade, pontuacaoDepressao, onLogout }) => {
       <Text style={styles.interpretacao}>{interpretacaoD(pontuacaoDepressaoFinal)}</Text>
 
       <TouchableOpacity onPress={onLogout} style={styles.logoutButton}>
-        <Text style={styles.logoutButtonText}>Sair</Text>
+        <Text style={styles.logoutButtonText} labelStyle={{fontFamily: 'Inder_400Regular'}}>Sair</Text>
       </TouchableOpacity>
     </View>
   );
@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    width: '100%',
   },
   contentContainer: {
     flex: 1,
@@ -265,9 +266,10 @@ const styles = StyleSheet.create({
 
   indiceTexto: {
     fontSize: 20,
-    color: '#000', // Alterar para a cor que desejar
+    color: '#ebebff', // Alterar para a cor que desejar
     textAlign: 'left',
-    marginBottom: 10,
+    padding: 22,
+    fontFamily: 'Inder_400Regular',
 
   },
   chartTitle: {
@@ -294,8 +296,8 @@ const styles = StyleSheet.create({
   },
   logoutButtonText: {
     color: '#fff',
-    fontWeight: 'bold',
     textAlign: 'center',
+    
   },
   logo: {
     width: '50%',  // A largura da logo será 50% da largura da tela

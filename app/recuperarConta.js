@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontFamily: 'Inder_400Regular',
-    fontWeight: 'bold',
     textAlign: 'center',
   },
 });
