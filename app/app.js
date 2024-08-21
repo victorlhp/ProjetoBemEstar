@@ -289,16 +289,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#555',
   },
-  logoutButton: {
-    backgroundColor: '#ff6347',
-    padding: 10,
-    borderRadius: 5,
-  },
-  logoutButtonText: {
-    color: '#fff',
-    textAlign: 'center',
-    
-  },
+ 
+ 
   logo: {
     width: '50%',  // A largura da logo será 50% da largura da tela
     height: undefined, // Deixe a altura indefinida para manter a proporção
@@ -442,18 +434,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#6666ff',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    alignSelf: 'flex-end',
-    
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 
   logoutButtonText: {
     color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
+    fontFamily: 'Inder_400Regular',
   },
 
-  // Outros estilos...
 });
 
 export default App;
