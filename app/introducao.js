@@ -144,9 +144,9 @@ const styles = StyleSheet.create({
   user: {
     padding: 50,
     justifyContent: 'center',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
-    fontSize: 17,
+    fontSize: 35,
     fontFamily: 'Inder_400Regular',
     color: '#e5e5ff', // Cor do texto
   },
