@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
  
   botoesContainer: {
     flexDirection: 'column',
-    marginVertical: 0,
+    marginVertical: 65,
     top: 100,
     textAlign: 'left',
     },
