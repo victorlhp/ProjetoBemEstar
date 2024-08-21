@@ -45,7 +45,8 @@ const CriarConta = () => {
       setLoading(true);
       await createUserWithEmailAndPassword(auth, email, senha);
       setLoading(false);
-      router.replace('/');
+      router.replace('/inicio');
+
   }
 } catch (error) {
   console.error(error.code);
