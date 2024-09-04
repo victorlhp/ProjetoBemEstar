@@ -8,8 +8,8 @@ import { Link, useRouter } from 'expo-router';
 import { auth } from './firebaseConfig'; // Importe a instância do auth inicializada
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import * as Google from 'expo-auth-session/providers/google';
-import firebase from '@react-native-firebase/app';
-import firestore from '@react-native-firebase/firestore';
+import firebase from 'firebase/app';
+import firestore from 'firebase/firestore';
 
 
 const App = () => {
